@@ -37,8 +37,8 @@
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
-        "owner": "",
-        "name": ""
+        "owner": "AsharDweedar",
+        "name": "delete-dups-electron-react-typescript"
       },
       "windowsStoreConfig": {
         "packageName": "",
