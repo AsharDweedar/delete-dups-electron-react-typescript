@@ -1,9 +1,9 @@
 import * as React from 'react';
-import TestInterface from '../../interfaces/TestInterface'
+import GetStartedInterface from '../../interfaces/GetStartedInterface'
 
-const TestHTML = (props: TestInterface) => (
+const GetStartedHTML = (props: GetStartedInterface) => (
     <div>
-        <h1>TestHTML Component</h1>
+        <h1>GetStartedHTML Component</h1>
         Hello, {props.name}
         <br />
         You are {props.age} years old,
@@ -14,4 +14,4 @@ const TestHTML = (props: TestInterface) => (
     </div>
 )
 
-export default TestHTML
+export default GetStartedHTML

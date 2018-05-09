@@ -1,4 +1,4 @@
-export default interface TestInterface {
+export default interface GetStartedInterface {
     name: string;
     age: number;
     address: string;
