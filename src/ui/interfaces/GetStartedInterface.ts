@@ -1,6 +1,5 @@
-export default interface GetStartedInterface {
+export default interface DupInterface {
     name: string;
-    age: number;
-    address: string;
-    dob: Date;
+    dup: number;
+    path: string;
 }

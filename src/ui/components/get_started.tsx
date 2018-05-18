@@ -1,9 +1,9 @@
 import * as React from 'react';
+import List from './list';
 
 export default class GetStarted extends React.Component<any, {}> {
-    constructor(props: any) {
-        super(props);
-        console.log(props)
+    constructor() {
+        super();
     }
     render() {
         return (
@@ -11,7 +11,7 @@ export default class GetStarted extends React.Component<any, {}> {
                 <h2>Welcome To get started Component!</h2>
                 <div>
                     <h1>GetStarted Component</h1>
-                    Hello,
+                    <List list={[{ name: "ashar" }, { name: "aseel" }]} />
                 </div>
             </div>
         );

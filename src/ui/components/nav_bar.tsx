@@ -24,7 +24,7 @@ const NavBar = () => (
 
             <Route path="/home" component={Home} />
             <Route path="/about" component={About} />
-            <Route path="/getStarted" render={() => <GetStarted something="there" />} />
+            <Route path="/getStarted" render={() => <GetStarted />} />
         </div>
     </Router>
 )
