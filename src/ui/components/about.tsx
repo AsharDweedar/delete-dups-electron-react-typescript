@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TextInput} from 'belle'
+import { TextInput } from 'belle'
 
 const About = () => (
     <div>

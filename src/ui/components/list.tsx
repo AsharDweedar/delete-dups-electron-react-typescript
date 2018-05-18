@@ -1,7 +1,8 @@
 import * as React from 'react'
+import DupInterface from "../interfaces/DupInterface";
 
-export class List extends React.Component<{}, undefined> {
-    constructor(props) {
+export class List extends React.Component<{ list: Array<{name: string}> }, undefined> {
+    constructor(props: { list: Array<DupInterface>}) {
         super(props);
     }
     render() {
