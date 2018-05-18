@@ -3,6 +3,7 @@ import * as React from 'react';
 export default class GetStarted extends React.Component<any, {}> {
     constructor(props: any) {
         super(props);
+        console.log(props)
     }
     render() {
         return (
