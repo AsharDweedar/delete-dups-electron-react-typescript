@@ -1,14 +1,16 @@
 import * as React from 'react';
 import NavBar from './components/nav_bar';
-import {TextInput} from 'belle'
+import Footer from './components/footer';
 
 export class App extends React.Component<undefined, undefined> {
   render() {
     return (
       <div>
-        <h2>Welcome to React with Typescript!</h2>
-        <TextInput defaultValue="Update here and see how the input grows …" />
+        <div className="container">
+          <h2>Welcome to Delete Dups App!</h2>
+        </div>
         <NavBar />
+        <Footer />
       </div>
     );
   }
