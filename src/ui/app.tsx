@@ -6,10 +6,14 @@ export class App extends React.Component<undefined, undefined> {
   render() {
     return (
       <div>
-        <div className="container">
-          <h2>Welcome to Delete Dups App!</h2>
-        </div>
-        <NavBar />
+        <header>
+          <div className="container">
+            <h2>Welcome to Delete Dups App!</h2>
+          </div>
+        </header>
+        <main>
+          <NavBar />
+        </main>
         <Footer />
       </div>
     );
