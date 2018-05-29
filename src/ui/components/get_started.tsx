@@ -9,9 +9,9 @@ export default class GetStarted extends React.Component<any, {}> {
         super(props);
         this.state = {
             "delete?": false,
-            "priorties?": true,
-            "priortiesPath": "/tmp/priorties.json",
-            "resresh": false
+            "priorities?": true,
+            "prioritiesPath": "/tmp/priorities.json",
+            "refresh": false
         }
     }
     optionsUpdate (key: string, event: EventInterface) {
@@ -23,8 +23,8 @@ export default class GetStarted extends React.Component<any, {}> {
             <div>
                 <h6>should delete duplicates?</h6>
                 <Toggle defaultValue={false} onUpdate={(e: EventInterface) => this.optionsUpdate("delete?", e)} />
-                {this.state["delete?"] && <p><h6>should delete according to prirties?</h6>
-                <Toggle defaultValue onUpdate={(e: EventInterface) => this.optionsUpdate("prirties?", e)} /> </p>}
+                {this.state["delete?"] && <p><h6>should delete according to priorities?</h6>
+                <Toggle defaultValue onUpdate={(e: EventInterface) => this.optionsUpdate("priorities?", e)} /> </p>}
                 <List list={[{ name: "ashar" }, { name: "aseel" }]} />
             </div>
         );
