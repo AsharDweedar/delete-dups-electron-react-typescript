@@ -9,7 +9,7 @@ export default class GetStarted extends React.Component<any, {}> {
         return (
             <div>
                 <h2>Welcome To get started Component!</h2>
-                <GetStartedHTML name="AsharDweedar" age={24} address="Amman, Jordan" dob={new Date()} />
+                <GetStartedHTML files="AsharDweedar" folders={24} time="Amman, Jordan" started={new Date() finished={new Date()} } />
             </div>
         );
     }

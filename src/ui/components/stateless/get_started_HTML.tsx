@@ -1,5 +1,5 @@
 import * as React from 'react';
-import GetStartedInterface from '../../interfaces/GetStartedInterface'
+import ConclusionInterface from '../../interfaces/ConclusionInterface'
 
 const GetStartedHTML = (props: GetStartedInterface) => (
     <div>
