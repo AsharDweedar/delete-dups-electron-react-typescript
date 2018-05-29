@@ -1,9 +1,8 @@
 import * as React from 'react';
-import HomeHTML from './stateless/home_HTML';
 
 const Home = () => (
     <div>
-        <HomeHTML />
+        <h2>Home !!</h2>
     </div>
 )
 

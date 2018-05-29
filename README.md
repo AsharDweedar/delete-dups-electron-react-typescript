@@ -16,7 +16,7 @@ To get app ready for running locally run in terminal:
 
 To run app use: 
 ```bash
-electron-forge start
+npm start #or: electron-forge start
 ```
 ## AsharDweedar
 Tuesday, 24 April 2018
