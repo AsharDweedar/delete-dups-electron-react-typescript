@@ -25,7 +25,7 @@ export default class GetStarted extends React.Component<any, {}> {
                 <Toggle defaultValue={false} onUpdate={(e: EventInterface) => this.optionsUpdate("delete?", e)} />
                 {this.state["delete?"] && <p><h6>should delete according to priorities?</h6>
                 <Toggle defaultValue onUpdate={(e: EventInterface) => this.optionsUpdate("priorities?", e)} /> </p>}
-                <List list={[{ name: "ashar" }, { name: "aseel" }]} />
+                <List list={[{ name: "Ashar" }, { name: "Aseel" }]} />
             </div>
         );
     }
