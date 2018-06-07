@@ -1,16 +1,27 @@
 import * as React from 'react'
 import DupInterface from "../interfaces/DupInterface";
 
-export class List extends React.Component<{ list: Array<{name: string}> }, undefined> {
-    constructor(props: { list: Array<DupInterface>}) {
+export interface propsInterface { list: Array<DupInterface>; name: String }
+
+export class List extends React.Component<propsInterface, undefined> {
+    constructor(props: propsInterface) {
         super(props);
     }
     render() {
-        return (
-            <ul className="collection with-header">
-                {this.props.list.map(({ name }) => <li className="collection-header"><h4>{name}</h4></li>)}
-            </ul>
-        );
+        return <ul className="collection with-header">
+                    <li className="collection-header"><h4>{this.props.name}</h4></li>
+                    {this.props.list.map(({ value }) =>
+                        <li className="collection-item">
+                            <div>{value}
+                                <a href="#!" className="secondary-content">
+                                    <i className="material-icons">
+                                        send
+                                    </i>
+                                </a>
+                            </div>
+                        </li>
+                    )}
+                </ul>    
     }
 }
 
