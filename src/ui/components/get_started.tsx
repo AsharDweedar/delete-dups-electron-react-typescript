@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import InputLists from './input_lists';
+import InputListPaths from './input_list_paths';
+import InputListExtensions from './input_list_extensions';
 import Options from './options';
 
 export interface EventInterface { value: boolean; }
@@ -28,8 +29,8 @@ export default class GetStarted extends React.Component<any, {}> {
         return (
             <div>
                 <Options />
-                <InputLists name="paths" message="Type folders paths to include in the search"/>
-                <InputLists name="extensions" message="Type files Extensions to include in the search"/>
+                <InputListPaths />
+                <InputListExtensions />
                 
             </div>
         );
