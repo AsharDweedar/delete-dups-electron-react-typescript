@@ -19,12 +19,11 @@ export default class InputListPaths extends React.Component<any, {}> {
         this.state[this.props.name].push(value)
     }
     render() {
-        let p = this.props
         return (
             <div style={{ width: "40%", display: "inline-block" }}>
-                <input id="newFolder" type="file" onChange={this.onBrows} webkitdirectory />
-                <TextInput defaultValue="Type folders paths to include in the searchs" />
-                <List list={this.state["paths"]} name={"paths"} />
+                <button onClick={() => document.getElementById("newFolder").click()} className="btn-floating btn-large waves-effect waves-light red">+</button>
+                <input id="newFolder" type="file" onChange={this.onBrows} style={{display: "none"}}  webkitdirectory />
+                <List list={this.state["paths"]} name="paths" />
             </div>
         );
     }
