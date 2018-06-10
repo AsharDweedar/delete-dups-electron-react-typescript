@@ -11,7 +11,7 @@ export class List extends React.Component<propsInterface, undefined> {
         return <ul className="collection with-header">
                     <li className="collection-header"><h4>{this.props.name}</h4></li>
                     {this.props.list.map(({ value }) =>
-                        <li className="collection-item">
+                        <li className="collection-item" key={value}>
                             <div>{value}
                                 <a href="#!" className="secondary-content">
                                     <i className="material-icons">
