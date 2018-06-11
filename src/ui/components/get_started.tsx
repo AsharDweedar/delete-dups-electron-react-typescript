@@ -15,7 +15,7 @@ export default class GetStarted extends React.Component<any, {}> {
             "prioritiesPath": "/tmp/priorities.json",
             "refresh": false,
             "paths": [{ path: "Ashar" }, { path: "Aseel" }],
-            "extensions": [{ ext: ".png" }, { ext: ".jpeg" }]
+            "extensions": [{ value: ".png" }, { value: ".jpeg" }]
         }
     }
     optionsUpdate (key: string, event: EventInterface) {
@@ -25,12 +25,22 @@ export default class GetStarted extends React.Component<any, {}> {
     listsUpdate (key: string, value: string) {
         this.state[key].push(value)
     }
+    addPath (e: {target: {}}) {
+        console.log(e.target["value"]);
+    }
+    addEXT (ele: {value: string}) {
+        console.log("ele//////////////")
+        console.log(ele)
+        this.setState({
+            "extensions" : this.state["extensions"].concat([ele])
+        })
+    }
     render() {
         return (
             <div>
                 <Options />
-                <InputListPaths />
-                <InputListExtensions />
+                <InputListPaths add={this.addPath.bind(this)}/>
+                <InputListExtensions add={this.addEXT.bind(this)} ext={this.state["extensions"]}/>
                 
             </div>
         );

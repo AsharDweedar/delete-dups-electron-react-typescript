@@ -10,17 +10,36 @@ export default class Options extends React.Component<any, {}> {
             "delete?": false,
             "priorities?": true,
             "prioritiesPath": "/tmp/priorities.json",
+            "ext_case_sensitive?": false,
         }
     }
-    optionsUpdate(key: string, event: EventInterface) {
-        this.setState({[key] : event.value})
+    deleteUpdate(event: EventInterface) {
+        if (event.value && this.state["priorities?"]) {
+            return this.setState({
+                "priorities?": false,
+                "delete?": event.value
+            })
+        } 
+        this.setState({"delete?" : event.value})
+    }
+    prioritiesUpdate(event: EventInterface) {
+        this.setState({ "priorities?": event.value })
     }
     render() {
+        let p = this.state["priorities?"]
         return (
             <div>
-                <h6>should delete duplicates?</h6>
-                <Toggle defaultValue={false} onUpdate={(e: EventInterface) => this.optionsUpdate("delete?", e)} />
-                {this.state["delete?"] && <p><h6>should delete according to priorities?</h6><Toggle defaultValue onUpdate={(e: EventInterface) => this.optionsUpdate("priorities?", e)} /> </p>}
+                <h6>should delete duplicates once found?</h6>
+                <span style={{width: "30%", display: "inline-block"}}>
+                    <Toggle defaultValue={false} onUpdate={(e: EventInterface) => this.deleteUpdate(e)} />
+                </span>
+
+                <div>
+                    <span style={{width: "30%", display: "inline-block"}}>
+                        <h6>should delete according to priorities?</h6>
+                        <Toggle defaultValue={p} value={p} onUpdate={(e: EventInterface) => this.prioritiesUpdate(e)} disabled={this.state["delete?"]}/>
+                    </span>
+                </div>
             </div>
         );
     }

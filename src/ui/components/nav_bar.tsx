@@ -13,18 +13,18 @@ const NavBar = () => (
         <div>
             <nav>
                 <div className="nav-wrapper">
-                    <a href="#" className="brand-logo">Logo</a>
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    <a href="#" className="brand-logo left">Logo</a>
+                    <ul id="nav" className="right">
                         <li><a href="#!"><Link to="/about">About</Link></a></li>
                         <li><a href="#!"><Link to="/home">Home</Link></a></li>
-                        <li><a href="#!"><Link to="/getStarted">Get Started</Link></a></li>
+                        <li><a href="#!"><Link to="/get_started">Get Started</Link></a></li>
                     </ul>
                 </div>
             </nav>
 
             <Route path="/home" component={Home} />
             <Route path="/about" component={About} />
-            <Route path="/getStarted" render={() => <GetStarted />} />
+            <Route path="/get_started" render={() => <GetStarted />} />
         </div>
     </Router>
 )

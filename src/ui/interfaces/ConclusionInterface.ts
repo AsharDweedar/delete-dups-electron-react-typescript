@@ -3,6 +3,6 @@ export default interface ConclusionInterface {
     Folders: number;
     Files: number;
     Duplicates: object;
-    started: date;
-    finished: date;
+    started: TimeRanges;
+    finished: TimeRanges;
 }
