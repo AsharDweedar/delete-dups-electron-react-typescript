@@ -9,7 +9,6 @@ export default class InputListExtensions extends React.Component<any, {}> {
     constructor(props: PropsInterface) {
         super(props);
         this.state = {
-            "ext": this.props.ext,
             "adding": ""
         }
     }
@@ -17,19 +16,19 @@ export default class InputListExtensions extends React.Component<any, {}> {
         let value = this.state["adding"]
         this.props.add({ value })
     }
-    add(e: {value: string}) {
+    toAdd(e: {value: string}) {
         this.state["adding"] = e.value
     }
     render() {
         return (
-            <div style={{ width: "40%", display: "inline-block" }}>
+            <div style={{ width: "45%", display: "inline-block" }}>
                 <ul className="collection with-header">
                     <li className="collection-header">
                         <h4 style={{ display: "inline-block" }}>Extensions</h4>
                         <TextInput 
                             placeholder="Type files Extensions to include in the search"
                             style={{width: "80%", display: "inline-block"}}
-                            onUpdate={this.add.bind(this)}
+                            onUpdate={this.toAdd.bind(this)}
                         />
                         <button
                             onClick={this.onInsert.bind(this)}
@@ -37,7 +36,7 @@ export default class InputListExtensions extends React.Component<any, {}> {
                             className="btn-floating btn-small waves-effect waves-light green"> +
                         </button>
                     </li>
-                    <ListExt list={this.state["ext"]} />
+                    <ListExt list={this.props["ext"]} />
                 </ul>
             </div>
         );

@@ -29,11 +29,8 @@ export default class GetStarted extends React.Component<any, {}> {
         console.log(e.target["value"]);
     }
     addEXT (ele: {value: string}) {
-        console.log("ele//////////////")
-        console.log(ele)
-        this.setState({
-            "extensions" : this.state["extensions"].concat([ele])
-        })
+        let extensions = this.state["extensions"].concat([ele])
+        this.setState({ extensions })
     }
     render() {
         return (
@@ -41,7 +38,6 @@ export default class GetStarted extends React.Component<any, {}> {
                 <Options />
                 <InputListPaths add={this.addPath.bind(this)}/>
                 <InputListExtensions add={this.addEXT.bind(this)} ext={this.state["extensions"]}/>
-                
             </div>
         );
     }

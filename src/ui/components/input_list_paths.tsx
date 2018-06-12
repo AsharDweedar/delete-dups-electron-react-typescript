@@ -22,7 +22,7 @@ export default class InputListPaths extends React.Component<any, {}> {
     }
     render() {
         return (
-            <div style={{ width: "40%", display: "inline-block" }}>
+            <div style={{ width: "45%", display: "inline-block" }}>
                 <input id="newFolder" type="file" onChange={this.onBrows.bind(this)} style={{ display: "none" }} webkitdirectory />
                 <ul className="collection with-header">
                     <li className="collection-header">

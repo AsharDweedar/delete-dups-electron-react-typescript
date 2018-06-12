@@ -18,7 +18,6 @@ export default class ListPaths extends React.Component<propsInterface, undefined
     }
 }
 
-
 let Element = ({ path }: { path: string[] }) => (<nav>
     <div className="nav-wrapper" key={path.join("/")}>
         <div className="col s12 nav-wrapper" style={{overflow: "hide", paddingRight: "10%", border: "1px red solid"}}>
