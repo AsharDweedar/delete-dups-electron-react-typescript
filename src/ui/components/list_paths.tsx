@@ -8,12 +8,19 @@ export default class ListPaths extends React.Component<ListPathsI, any> {
         )
     }
     render() {
+        let list = this.props.list
+        let HTMLlist = list.length ?  list.map(({ path }: { path: string }) =>
+                    <li className="collection-item" key={path}>
+                        {<Element path={path.split("/")} />}
+                    </li>
+                )
+        :
+            [<li className="collection-item" key="empty">
+                {<Element path={"empty-paths-list".split("/")} />}
+            </li>]
+
         return <div>
-            {this.props.list.map(({ path }: { path: string }) =>
-                <li className="collection-item" key={path}>
-                    {<Element path={path.split("/")} />}
-                </li>
-            )}
+            {HTMLlist}
         </div>
     }
 }
