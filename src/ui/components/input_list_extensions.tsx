@@ -3,10 +3,8 @@ import { TextInput } from 'belle';
 
 import ListExt from './list_extensions';
 
-export interface PropsInterface { add: Function; ext: [{value: string}] }
-
 export default class InputListExtensions extends React.Component<any, {}> {
-    constructor(props: PropsInterface) {
+    constructor(props: InputListExtI) {
         super(props);
         this.state = {
             "adding": ""

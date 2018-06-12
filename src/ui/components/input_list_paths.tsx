@@ -2,10 +2,8 @@ import * as React from 'react';
 
 import ListPaths from './list_paths';
 
-export interface PropsInterface { add: Function; paths: {path: string}[]}
-
-export default class InputListPaths extends React.Component<PropsInterface, {}> {
-    constructor(props: PropsInterface) {
+export default class InputListPaths extends React.Component<InptutPathsListI, any> {
+    constructor(props: InptutPathsListI) {
         super(props);
     }
     onBrows(e: { target: {} }) {

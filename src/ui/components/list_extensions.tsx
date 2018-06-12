@@ -1,9 +1,7 @@
 import * as React from 'react'
 
-export interface propsInterface { list: Array<{value: string}>}
-
-export class ListExt extends React.Component<propsInterface, undefined> {
-    constructor(props: propsInterface) {
+export class ListExt extends React.Component<ExtListI, {}> {
+    constructor(props: ExtListI) {
         super(props);
     }
     render() {

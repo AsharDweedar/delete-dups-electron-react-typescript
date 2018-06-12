@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Toggle } from 'belle'
 
-export interface EventInterface { value: boolean; }
-
 export default class Options extends React.Component<any, {}> {
     constructor(props: {}) {
         super(props);
@@ -13,7 +11,7 @@ export default class Options extends React.Component<any, {}> {
             "ext_case_sensitive?": false,
         }
     }
-    deleteUpdate(event: EventInterface) {
+    deleteUpdate(event: EventI) {
         if (event.value && this.state["priorities?"]) {
             return this.setState({
                 "priorities?": false,
@@ -22,7 +20,7 @@ export default class Options extends React.Component<any, {}> {
         } 
         this.setState({"delete?" : event.value})
     }
-    prioritiesUpdate(event: EventInterface) {
+    prioritiesUpdate(event: EventI) {
         this.setState({ "priorities?": event.value })
     }
     render() {
@@ -31,13 +29,13 @@ export default class Options extends React.Component<any, {}> {
             <div>
                 <h6>should delete duplicates once found?</h6>
                 <span style={{width: "30%", display: "inline-block"}}>
-                    <Toggle defaultValue={false} onUpdate={(e: EventInterface) => this.deleteUpdate(e)} />
+                    <Toggle defaultValue={false} onUpdate={(e: EventI) => this.deleteUpdate(e)} />
                 </span>
 
                 <div>
                     <span style={{width: "30%", display: "inline-block"}}>
                         <h6>should delete according to priorities?</h6>
-                        <Toggle defaultValue={p} value={p} onUpdate={(e: EventInterface) => this.prioritiesUpdate(e)} disabled={this.state["delete?"]}/>
+                        <Toggle defaultValue={p} value={p} onUpdate={(e: EventI) => this.prioritiesUpdate(e)} disabled={this.state["delete?"]}/>
                     </span>
                 </div>
             </div>

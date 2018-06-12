@@ -8,17 +8,7 @@ import Home from './home';
 import About from './about';
 import GetStarted from './get_started';
 
-export interface NavBarState {
-  "delete?": boolean;
-  "priorities?": boolean;
-  "prioritiesPath": string;
-  "refresh": boolean;
-  "paths": { path: string }[];
-  "ext": { value: string }[];
-
-}
-
-export default class NavBar extends React.Component<{}, NavBarState> {
+export default class NavBar extends React.Component<{}, NavBarStateI> {
   constructor() {
     super();
     this.state = {
@@ -31,8 +21,6 @@ export default class NavBar extends React.Component<{}, NavBarState> {
     }
   }
   addPath(ele: { path: string }) {
-    console.log("*****************************")
-    console.log(ele)
     let paths = this.state["paths"].concat([ele])
     this.setState({ ...this.state, paths })
   }

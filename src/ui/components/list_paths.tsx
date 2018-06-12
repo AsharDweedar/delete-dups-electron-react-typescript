@@ -1,12 +1,8 @@
 import * as React from 'react'
-import DupInterface from "../interfaces/DupInterface";
 
-export interface propsInterface { list: Array<DupInterface> }
-
-export default class ListPaths extends React.Component<propsInterface, undefined> {
-    constructor(props: propsInterface) {
+export default class ListPaths extends React.Component<ListPathsI, any> {
+    constructor(props: ListPathsI) {
         super(props);
-        console.log(props)
         this.props.list.map(({ path }: { path: string }) =>
             console.log(path)
         )
