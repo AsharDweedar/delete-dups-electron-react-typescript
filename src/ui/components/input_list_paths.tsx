@@ -16,7 +16,7 @@ export default class InputListPaths extends React.Component<InptutPathsListI, an
     }
     render() {
         return (
-            <div style={{ display: "inline-block", "alignItems": "stretch", "margin": "50px" }}>
+            <div style={{ display: "inline-block", "alignItems": "stretch", "margin": "50px", " maxWidth": "45%" }}>
                 <input id="newFolder" type="file" onChange={this.onBrows.bind(this)} style={{ display: "none" }} />
                 <ul className="collection with-header">
                     <li className="collection-header">

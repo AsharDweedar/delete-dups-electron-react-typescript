@@ -14,8 +14,16 @@ export default class GetStarted extends React.Component<any, {}> {
         <Options />
         <div style={{
           "justifyContent": "center", display: "flex", alignContent: "flex-start"}}>
-            <InputListPaths add={this.props.addPath} paths={this.props["paths"]} />
-            <InputListExtensions add={this.props.addEXT} ext={this.props["ext"]} />
+            <InputListPaths
+              add={this.props.addPath}
+              paths={this.props["paths"]}
+            />
+            <InputListExtensions
+              add={this.props.addEXT}
+              ext={this.props["ext"]}
+              ExtCase={this.props.ExtCase}
+              ExtCaseChange={this.props.ExtCaseChange}
+            />
         </div>
       </div>
     );

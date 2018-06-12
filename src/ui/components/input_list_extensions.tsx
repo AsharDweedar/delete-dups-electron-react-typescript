@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextInput } from 'belle';
+import { TextInput, Toggle } from 'belle';
 
 import ListExt from './list_extensions';
 
@@ -15,14 +15,19 @@ export default class InputListExtensions extends React.Component<any, {}> {
         this.props.add({ value })
     }
     toAdd(e: { value: string }) {
-        this.state["adding"] = e.value
+        let adding = e.value
+        this.setState({ adding })
     }
     render() {
+        let p = this.props["ExtCase"]
         return (
-            <div style={{ display: "inline-block", "alignItems": "stretch", "margin" : "50px" }}>
+            <div style={{ display: "inline-block", "alignItems": "stretch", "margin": "50px", " maxWidth": "45%" }}>
                 <ul className="collection with-header">
                     <li className="collection-header">
                         <h4 style={{ display: "inline-block" }}>Extensions</h4>
+                        <span style={{"marginLeft" : "10%"}} >
+                            Case Sensitive ? <span style={{ "marginLeft": "2.5%" }} ><Toggle defaultValue={p} value={p} onUpdate={this.props.ExtCaseChange} /></span>
+                        </span>
                         <TextInput
                             placeholder="Type files Extensions to include in the search"
                             style={{ width: "80%", display: "inline-block" }}
@@ -34,7 +39,7 @@ export default class InputListExtensions extends React.Component<any, {}> {
                             className="btn-floating btn-small waves-effect waves-light green"> +
                         </button>
                     </li>
-                    <ListExt list={this.props["ext"]} />
+                    <ListExt list={this.props["ext"].concat([this.state["adding"]])} />
                 </ul>
             </div>
         );

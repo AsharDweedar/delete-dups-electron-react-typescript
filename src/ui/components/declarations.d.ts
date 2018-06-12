@@ -22,6 +22,7 @@ declare interface ListPathsI { list: Array<pathI> }
 /* EXTs interfaces */
 declare interface ExtI { value: string }
 declare interface ExtListI { list: Array<ExtI> }
+declare interface InputListExtI { add: Function; ext: [{ value: string }], ExtCase: boolean }
 
 declare interface OptionsI {
     'delete?': boolean;
@@ -32,8 +33,7 @@ declare interface NavBarStateI {
     "delete?": boolean;
     "priorities?": boolean;
     "prioritiesPath": string;
-    "refresh": boolean;
+    "ExtCase": boolean;
     "paths": { path: string }[];
     "ext": { value: string }[];
 }
-declare interface InputListExtI { add: Function; ext: [{ value: string }] }

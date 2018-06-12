@@ -15,11 +15,11 @@ export default class NavBar extends React.Component<{}, NavBarStateI> {
       "delete?": false,
       "priorities?": true,
       "prioritiesPath": "/tmp/priorities.json",
-      "refresh": false,
       // "paths": [],
       "paths": [{ path: "/Ashar/Fayez/Dweedar" }, { path: "/Aseel/Fayez/Dweedar" }],
-      "ext": [{ value: ".png" }, { value: ".jpeg" }]
-      // "ext": []
+      "ext": [{ value: ".png" }, { value: ".jpeg" }],
+      // "ext": [],
+      "ExtCase": false
     }
   }
   addPath(ele: { path: string }) {
@@ -29,6 +29,9 @@ export default class NavBar extends React.Component<{}, NavBarStateI> {
   addEXT(ele: { value: string }) {
     let ext = this.state["ext"].concat([ele])
     this.setState({ ...this.state, ext })
+  }
+  ExtCaseChange (e: EventI) {
+    this.setState({...this.state, ExtCase: e.value})
   }
   render() {
     return (< Router >
@@ -52,6 +55,7 @@ export default class NavBar extends React.Component<{}, NavBarStateI> {
             () =>
               <GetStarted
                 addEXT={this.addEXT.bind(this)}
+                ExtCaseChange={this.ExtCaseChange.bind(this)}
                 addPath={this.addPath.bind(this)}
                 {...this.state}
               />}
