@@ -11,17 +11,17 @@ const Footer = () => (
                 <div className="col l4 offset-l2 s12">
                     <h5 className="white-text">Reach Out:</h5>
                     <ul>
-                        <li><a className="grey-text text-lighten-3" href="#!">GitHub</a></li>
-                        <li><a className="grey-text text-lighten-3" href="#!">LinkedIn</a></li>
-                        <li><a className="grey-text text-lighten-3" href="#!">3DWearHouse</a></li>
-                        <li><a className="grey-text text-lighten-3" href="#!">FaceBook</a></li>
+                        <li><a className="grey-text text-lighten-3" href="https://github.com/AsharDweedar">GitHub</a></li>
+                        <li><a className="grey-text text-lighten-3" href="https://www.linkedin.com/in/as-har-dweedar/">LinkedIn</a></li>
+                        <li><a className="grey-text text-lighten-3" href="https://3dwarehouse.sketchup.com/user/65e0a2df-177a-41de-b0fd-a9d561a45ad8/AsharDweedar?nav=models">3DWearHouse</a></li>
+                        <li><a className="grey-text text-lighten-3" href="https://www.facebook.com/AsharDweedar">FaceBook</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div className="footer-copyright">
             <div className="container">
-                © 2018 Copyright Text
+                © 2018 Copyright Text (GNU GENERAL PUBLIC LICENSE)
             <a className="grey-text text-lighten-4 right" href="mailto:Ashar.Dweedar@gmail.com">More Ashar.Dweedar@gmail.com</a>
             </div>
         </div>
