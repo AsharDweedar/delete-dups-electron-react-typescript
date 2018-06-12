@@ -21,7 +21,7 @@ export default class InputListExtensions extends React.Component<any, {}> {
     }
     render() {
         return (
-            <div className="List">
+            <div style={{ display: "inline-block"}}>
                 <ul className="collection with-header">
                     <li className="collection-header">
                         <h4 style={{ display: "inline-block" }}>Extensions</h4>

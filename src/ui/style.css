@@ -1,8 +1,0 @@
-div.List {
-    width: 45%;
-    display: inline-block;
-}
-body * {
-    color: green;
-    border: 1px solid red;
-}
