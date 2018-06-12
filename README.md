@@ -1,5 +1,7 @@
 # delete-dups-electron-react-typescript
 
+under development ^_^
+
 Created by electron-forge, by running:
 ```bash
 npm install -g electron-forge

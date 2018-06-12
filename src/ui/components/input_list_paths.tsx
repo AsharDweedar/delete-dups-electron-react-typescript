@@ -10,7 +10,7 @@ export default class InputListPaths extends React.Component<PropsInterface, {}> 
     }
     onBrows(e: { target: {} }) {
         let path = e.target["files"][0]["path"]
-        this.props.add({ path: path })
+        this.props.add({ path })
     }
     show() {
         let ele = document.getElementById("newFolder") || { click: () => console.log("couldn't find the input file element") }
@@ -18,7 +18,7 @@ export default class InputListPaths extends React.Component<PropsInterface, {}> 
     }
     render() {
         return (
-            <div style={{ width: "45%", display: "inline-block" }}>
+            <div className="List">
                 <input id="newFolder" type="file" onChange={this.onBrows.bind(this)} style={{ display: "none" }} />
                 <ul className="collection with-header">
                     <li className="collection-header">
