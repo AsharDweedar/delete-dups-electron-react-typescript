@@ -12,13 +12,10 @@ export default class GetStarted extends React.Component<any, {}> {
     return (
       <div>
         <Options />
-        <div style={{ "justifyContent": "center", display: "inline-flex" }}>
-          <div style={{ "alignItems": "stretch" }} >
+        <div style={{
+          "justifyContent": "center", display: "flex", alignContent: "flex-start"}}>
             <InputListPaths add={this.props.addPath} paths={this.props["paths"]} />
-          </div>
-          <div style={{ "alignItems": "stretch" }} >
             <InputListExtensions add={this.props.addEXT} ext={this.props["ext"]} />
-          </div>
         </div>
       </div>
     );
