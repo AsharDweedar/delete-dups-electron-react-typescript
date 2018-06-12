@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Toggle } from 'belle'
+import { Toggle } from 'belle';
 
 export default class Options extends React.Component<any, {}> {
     constructor(props: {}) {
@@ -17,8 +17,8 @@ export default class Options extends React.Component<any, {}> {
                 "priorities?": false,
                 "delete?": event.value
             })
-        } 
-        this.setState({"delete?" : event.value})
+        }
+        this.setState({ "delete?": event.value })
     }
     prioritiesUpdate(event: EventI) {
         this.setState({ "priorities?": event.value })
@@ -28,14 +28,14 @@ export default class Options extends React.Component<any, {}> {
         return (
             <div>
                 <h6>should delete duplicates once found?</h6>
-                <span style={{width: "30%", display: "inline-block"}}>
+                <span style={{ width: "30%", display: "inline-block" }}>
                     <Toggle defaultValue={false} onUpdate={(e: EventI) => this.deleteUpdate(e)} />
                 </span>
 
                 <div>
-                    <span style={{width: "30%", display: "inline-block"}}>
+                    <span style={{ width: "30%", display: "inline-block" }}>
                         <h6>should delete according to priorities?</h6>
-                        <Toggle defaultValue={p} value={p} onUpdate={(e: EventI) => this.prioritiesUpdate(e)} disabled={this.state["delete?"]}/>
+                        <Toggle defaultValue={p} value={p} onUpdate={(e: EventI) => this.prioritiesUpdate(e)} disabled={this.state["delete?"]} />
                     </span>
                 </div>
             </div>

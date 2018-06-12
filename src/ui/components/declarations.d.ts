@@ -1,6 +1,6 @@
 declare module 'belle';
-declare interface EventI { value: boolean; target: {}}
-declare interface ConclusionI{
+declare interface EventI { value: boolean; target: {} }
+declare interface ConclusionI {
     Time: string;
     Folders: number;
     Files: number;

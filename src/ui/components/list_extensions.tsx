@@ -6,7 +6,7 @@ export class ListExt extends React.Component<ExtListI, {}> {
     }
     render() {
         return <div>
-            {this.props.list.map(({ value }: {value: string}) =>
+            {this.props.list.map(({ value }: { value: string }) =>
                 <li className="collection-item" key={value}>
                     <div>{value}
                         <a href="#!" className="secondary-content">

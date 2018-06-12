@@ -20,7 +20,7 @@ export default class ListPaths extends React.Component<ListPathsI, any> {
 
 let Element = ({ path }: { path: string[] }) => (<nav>
     <div className="nav-wrapper" key={path.join("/")}>
-        <div className="col s12 nav-wrapper" style={{overflow: "hide", paddingRight: "10%", border: "1px red solid"}}>
+        <div className="col s12 nav-wrapper" style={{ overflow: "hide", paddingRight: "10%", border: "1px red solid" }}>
             {path.map((pathPart) =>
                 <a href="#!" className="breadcrumb">{pathPart}</a>
             )}

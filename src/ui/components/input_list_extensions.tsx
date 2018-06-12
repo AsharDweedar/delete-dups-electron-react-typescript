@@ -14,18 +14,18 @@ export default class InputListExtensions extends React.Component<any, {}> {
         let value = this.state["adding"]
         this.props.add({ value })
     }
-    toAdd(e: {value: string}) {
+    toAdd(e: { value: string }) {
         this.state["adding"] = e.value
     }
     render() {
         return (
-            <div style={{ display: "inline-block"}}>
+            <div style={{ display: "inline-block" }}>
                 <ul className="collection with-header">
                     <li className="collection-header">
                         <h4 style={{ display: "inline-block" }}>Extensions</h4>
-                        <TextInput 
+                        <TextInput
                             placeholder="Type files Extensions to include in the search"
-                            style={{width: "80%", display: "inline-block"}}
+                            style={{ width: "80%", display: "inline-block" }}
                             onUpdate={this.toAdd.bind(this)}
                         />
                         <button
