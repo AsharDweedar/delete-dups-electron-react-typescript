@@ -16,8 +16,10 @@ export default class NavBar extends React.Component<{}, NavBarStateI> {
       "priorities?": true,
       "prioritiesPath": "/tmp/priorities.json",
       "refresh": false,
+      // "paths": [],
       "paths": [{ path: "/Ashar/Fayez/Dweedar" }, { path: "/Aseel/Fayez/Dweedar" }],
       "ext": [{ value: ".png" }, { value: ".jpeg" }]
+      // "ext": []
     }
   }
   addPath(ele: { path: string }) {

@@ -29,13 +29,13 @@ let Element = ({ path }: { path: string[] }) => (<nav>
     <div className="nav-wrapper" key={path.join("/")}>
         <div className="col s12 nav-wrapper" style={{ overflow: "hide", paddingRight: "10%", border: "1px red solid" }}>
             {path.map((pathPart) =>
-                <a href="#!" className="breadcrumb">{pathPart}</a>
+                <a href="#!" key={pathPart} className="breadcrumb">{pathPart}</a>
             )}
-            <a href="#!" className="secondary-content">
+            {path[0] != "empty-paths-list" && <a href="#!" className="secondary-content">
                 <i className="material-icons">
                     delete
                 </i>
-            </a>
+            </a>}
         </div>
     </div>
 </nav>)

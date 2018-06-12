@@ -5,20 +5,32 @@ export class ListExt extends React.Component<ExtListI, {}> {
         super(props);
     }
     render() {
+        let list = this.props.list
+        let HTMLlist = list.length ?
+            list.map(({ value }: { value: string }) =>
+                <Element value={value} key={value}/>
+            )
+            :
+            [<li className="collection-item" key="empty">
+                {<Element value="empty-extensions-list" />}
+            </li>]
+
         return <div>
-            {this.props.list.map(({ value }: { value: string }) =>
-                <li className="collection-item" key={value}>
-                    <div>{value}
-                        <a href="#!" className="secondary-content">
-                            <i className="material-icons">
-                                delete
-                            </i>
-                        </a>
-                    </div>
-                </li>
-            )}
+            {HTMLlist}
         </div>
     }
 }
+
+const Element = ({ value }: {value: string}) => (
+    <li className="collection-item" >
+        <div>{value}
+            {value != "empty-extensions-list" && <a href="#!" className="secondary-content">
+                <i className="material-icons">
+                    delete
+                </i>
+            </a>}
+        </div>
+    </li>
+)
 
 export default ListExt
