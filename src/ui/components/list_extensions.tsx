@@ -1,7 +1,6 @@
 import * as React from 'react'
-import DupInterface from "../interfaces/DupInterface";
 
-export interface propsInterface { list: Array<DupInterface>}
+export interface propsInterface { list: Array<{value: string}>}
 
 export class ListExt extends React.Component<propsInterface, undefined> {
     constructor(props: propsInterface) {

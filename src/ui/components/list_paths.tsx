@@ -6,12 +6,16 @@ export interface propsInterface { list: Array<DupInterface> }
 export default class ListPaths extends React.Component<propsInterface, undefined> {
     constructor(props: propsInterface) {
         super(props);
+        console.log(props)
+        this.props.list.map(({ path }: { path: string }) =>
+            console.log(path)
+        )
     }
     render() {
         return <div>
-            {this.props.list.map(({ value }: { value: string }) =>
-                <li className="collection-item" key={value}>
-                    {<Element path={value.split("/")} />}
+            {this.props.list.map(({ path }: { path: string }) =>
+                <li className="collection-item" key={path}>
+                    {<Element path={path.split("/")} />}
                 </li>
             )}
         </div>

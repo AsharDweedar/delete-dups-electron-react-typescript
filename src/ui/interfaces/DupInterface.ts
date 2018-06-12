@@ -1,3 +1,3 @@
 export default interface DupInterface {
-    value: string;
+    path: string;
 }
