@@ -1,4 +1,6 @@
 declare module 'belle';
+declare module 'electron';
+
 declare interface EventI { value: boolean; target: {} }
 declare interface ConclusionI {
     Time: string;
@@ -16,7 +18,7 @@ declare interface propsInterface { list: Array<DupI> }
 
 /* paths interfaces */
 declare interface pathI { path: string }
-declare interface InptutPathsListI { add: Function; paths: Array<pathI> }
+declare interface InputPathsListI { add: Function; paths: Array<pathI> }
 declare interface ListPathsI { list: Array<pathI> }
 
 /* EXTs interfaces */
