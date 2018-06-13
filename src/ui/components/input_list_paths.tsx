@@ -2,27 +2,25 @@ import * as React from 'react';
 
 import ListPaths from './list_paths';
 
-export default class InputListPaths extends React.Component<InptutPathsListI, any> {
-    constructor(props: InptutPathsListI) {
+export default class InputListPaths extends React.Component<InputPathsListI, any> {
+    constructor(props: InputPathsListI) {
         super(props);
     }
-    onBrows(e: { target: {} }) {
-        let path = e.target["files"][0]["path"]
-        this.props.add({ path })
-    }
     show() {
-        let ele = document.getElementById("newFolder") || { click: () => console.log("couldn't find the input file element") }
-        ele.click()
+        const { dialog } = require('electron').remote;
+        var [path] = dialog.showOpenDialog({
+            properties: ['openDirectory']
+        });
+        this.props.add({ path })
     }
     render() {
         return (
             <div style={{ display: "inline-block", "alignItems": "stretch", "margin": "50px", " maxWidth": "45%" }}>
-                <input id="newFolder" type="file" onChange={this.onBrows.bind(this)} style={{ display: "none" }} />
                 <ul className="collection with-header">
                     <li className="collection-header">
                         <h4 style={{ display: "inline-block" }}>Paths</h4>
                         <button
-                            onClick={this.show}
+                            onClick={this.show.bind(this)}
                             style={{ float: "right" }}
                             className="btn-floating btn-large waves-effect waves-light green"> +
                     </button>
