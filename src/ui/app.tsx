@@ -8,7 +8,7 @@ export class App extends React.Component<undefined, undefined> {
       <div>
         <header>
           <div className="container">
-            <h2>Welcome to Delete Dups App!</h2>
+            <h3>Welcome to Delete Dups App!</h3>
           </div>
         </header>
         <main>
