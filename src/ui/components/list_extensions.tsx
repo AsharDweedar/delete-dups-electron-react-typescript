@@ -6,22 +6,20 @@ export class ListExt extends React.Component<ExtListI, {}> {
     }
     render() {
         let list = this.props.list
-        let HTMLlist = list.length ?
-            list.map(({ value }: { value: string }) =>
-                <Element value={value} key={value}/>
-            )
-            :
-            [<li className="collection-item" key="empty">
-                {<Element value="empty-extensions-list" />}
-            </li>]
-
+        let HTMLlist =
+            list.map(({ value }: { value: string }) => <Element value={value} key={value} />)
         return <div>
-            {HTMLlist}
+            {list.length ?
+                HTMLlist
+                :
+                <li className="collection-item" key="empty">
+                <Element value="empty-extensions-list" />
+                </li>}
         </div>
     }
 }
 
-const Element = ({ value }: {value: string}) => (
+const Element = ({ value }: { value: string }) => (
     <li className="collection-item" >
         <div>{value}
             {value != "empty-extensions-list" && <a href="#!" className="secondary-content">
