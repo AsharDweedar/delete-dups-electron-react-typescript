@@ -1,7 +1,7 @@
 declare module 'belle';
 declare module 'electron';
 
-declare interface EventI { value: boolean; target: {} }
+declare interface EventI { value: boolean; target: {value: any} }
 declare interface ConclusionI {
     Time: string;
     Folders: number;
