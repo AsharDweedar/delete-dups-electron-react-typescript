@@ -26,20 +26,33 @@ export default class Options extends React.Component<any, {}> {
     render() {
         let p = this.state["priorities?"]
         return (
-            <div>
-                <h6>should delete duplicates once found?</h6>
-                <span style={{ width: "30%", display: "inline-block" }}>
-                    <Toggle defaultValue={false} onUpdate={(e: EventI) => this.deleteUpdate(e)} />
-                </span>
-
-                <div>
-                    <span style={{ width: "30%", display: "inline-block" }}>
-                        <h6>should delete according to priorities?</h6>
-                        <Toggle defaultValue={p} value={p} onUpdate={(e: EventI) => this.prioritiesUpdate(e)} disabled={this.state["delete?"]} />
-                    </span>
-                </div>
+            <div style={{width: "70%", display: "inline-block"}}>
+                <table className="responsive-table">
+                    <tbody>
+                        <tr>
+                            <td>should delete duplicates once found?</td>
+                            <td><Toggle defaultValue={false} onUpdate={(e: EventI) => this.deleteUpdate(e)} /></td>
+                        </tr>
+                        <tr>
+                            <td>should delete according to priorities?</td>
+                            <td> <Toggle defaultValue={p} value={p} onUpdate={(e: EventI) => this.prioritiesUpdate(e)} disabled={this.state["delete?"]} /></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         );
     }
 }
 
+
+                // <h6></h6>
+                // <span style={{ width: "30%", display: "inline-block" }}>
+                //     <Toggle defaultValue={false} onUpdate={(e: EventI) => this.deleteUpdate(e)} />
+                // </span>
+
+                // <div>
+                //     <span style={{ width: "30%", display: "inline-block" }}>
+                //         <h6>should delete according to priorities?</h6>
+                //         <Toggle defaultValue={p} value={p} onUpdate={(e: EventI) => this.prioritiesUpdate(e)} disabled={this.state["delete?"]} />
+                //     </span>
+                // </div>

@@ -7,15 +7,16 @@ export default class InputListExtensions extends React.Component<any, {}> {
     constructor(props: InputListExtI) {
         super(props);
         this.state = {
-            "adding": ""
+            "adding": { value: "" }
         }
     }
     onInsert() {
-        let value = this.state["adding"]
+        let value = this.state["adding"].value
+        this.state["adding"] = {value: ""}
         this.props.add({ value })
     }
     toAdd(e: { value: string }) {
-        let adding = e.value
+        let adding = { value: e.value }
         this.setState({ adding })
     }
     render() {
@@ -32,6 +33,7 @@ export default class InputListExtensions extends React.Component<any, {}> {
                             placeholder="Type files Extensions to include in the search"
                             style={{ width: "80%", display: "inline-block" }}
                             onUpdate={this.toAdd.bind(this)}
+                            value={this.state["adding"].value}
                         />
                         <button
                             onClick={this.onInsert.bind(this)}
