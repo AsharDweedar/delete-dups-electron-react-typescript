@@ -1,4 +1,4 @@
 - add priorities path input field
 - add options correctly to the main component(pass the update function down with the props)
 - handle entering a path as a sub-path of previously entered one
-- 
+- add delete functions to ext and paths
