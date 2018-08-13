@@ -18,7 +18,7 @@ export default class GetStarted extends React.Component<any, {}> {
           <a className="waves-effect waves-light btn-large right" style={{ margin: "2.5em" }}><i className="material-icons left">cloud</i>Start Scanning</a>
         </div>
         <div style={{
-          "justifyContent": "center", display: "flex", alignContent: "flex-start"
+          justifyContent: "center", display: "flex", alignContent: "flex-start"
         }}>
           <InputListPaths
             add={this.props.addPath}
