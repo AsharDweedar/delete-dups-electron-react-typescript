@@ -1,25 +1,27 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu} from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
 
-import createMenu from './menue'
-createMenu(Menu)
+import createMenu from './menu'
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow: Electron.BrowserWindow | null = null;
-
 const isDevMode = process.execPath.match(/[\\/]electron/);
 
+
 if (isDevMode) {
-  enableLiveReload({strategy: 'react-hmr'});
+  enableLiveReload({ strategy: 'react-hmr' });
 }
 
 const createWindow = async () => {
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
   });
+
+  createMenu(Menu)
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/ui/index.html`);

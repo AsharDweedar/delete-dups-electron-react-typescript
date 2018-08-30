@@ -10,7 +10,6 @@ import Footer from './components/footer';
 
 
 export class App extends React.Component<any, any> {
-// class App extends React.Component<any, any> {
   render() {
     return (
       <div>
@@ -27,23 +26,3 @@ export class App extends React.Component<any, any> {
     );
   }
 }
-
-// prepare store
-// const history = createBrowserHistory();
-// const store = configureStore(history);
-
-// ReactDOM.render(
-//       <App />,
-//   document.getElementById('root')
-// );
-
-
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <ConnectedRouter history={history}>
-//       <App />
-//     </ConnectedRouter>
-//   </Provider>,
-//   document.getElementById('root')
-// );
-

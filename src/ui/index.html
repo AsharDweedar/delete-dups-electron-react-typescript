@@ -20,28 +20,51 @@
     import * as React from 'react';
     import * as ReactDOM from 'react-dom';
     import {AppContainer} from 'react-hot-loader';
-    //import {Provider} from 'react-redux'
+    import {Provider} from 'react-redux'
 
-    // import configureStore from './store/configureStore.js';
+    import configureStore from '../store/configureStore.js';
     import App from './app';
 
-    // const store = configureStore();
+    const store = configureStore();
     // const store = {ext: [".png"], extActions: {}};
-
+    /*
     ReactDOM.render(
         <AppContainer>
           <App />
         </AppContainer>
     , document.getElementById('App'));
-    /*
+    */
     ReactDOM.render(
-      <Provider store={store} subscribe={""}>
-        <AppContainer>
+      <AppContainer>
+        <Provider store={store} subscribe={""}>
           <App />
-        </AppContainer>
-      </Provider>
-    , document.getElementById('App'));*/
+        </Provider>
+      </AppContainer>
+    , document.getElementById('App'));
+
+
+    const {remote} = require('electron')
+    const {Menu, MenuItem} = remote
+    const menu = new Menu();
+
+    menu.append(new MenuItem({ role: 'about' }));
+    menu.append(new MenuItem({ type: 'separator' }));
+    menu.append(new MenuItem({ role: 'services', submenu: [{ label: 'customized event', click() { console.log('customized event clicked, this goes to the terminal') } }] }));
+    menu.append(new MenuItem({ type: 'separator' }));
+    menu.append(new MenuItem({ role: 'hide' }));
+    menu.append(new MenuItem({ role: 'hideothers' }));
+    menu.append(new MenuItem({ role: 'unhide' }));
+    menu.append(new MenuItem({ type: 'separator' }));
+    menu.append(new MenuItem({ role: 'quit' }));
+    menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }));
     
+    window.addEventListener('contextmenu', (e: any) => {
+      e.preventDefault()
+      menu.popup({ window: remote.getCurrentWindow() })
+    }, false)
+
+
+
     if (module.hot) { module.hot.accept(render); }
   </script>
   <link rel="stylesheet"  type="text/css" href="style.css"/>
