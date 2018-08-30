@@ -1,13 +1,16 @@
 import * as React from 'react';
+// import * as ReactDOM from 'react-dom';
+// import { Provider } from 'react-redux';
+// import { ConnectedRouter } from 'react-router-redux';
+// import { createBrowserHistory } from 'history';
+// import { configureStore } from '../store/configureStore';
+
 import NavBar from './components/nav_bar';
 import Footer from './components/footer';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as extActions from '../actions/extActions';
-import PropTypes from 'prop-types'; //?????
 
-// export class App extends React.Component<any, any> {
-class App extends React.Component<undefined, undefined> {
+
+export class App extends React.Component<any, any> {
+// class App extends React.Component<any, any> {
   render() {
     return (
       <div>
@@ -25,24 +28,22 @@ class App extends React.Component<undefined, undefined> {
   }
 }
 
-App.propTypes = {
-  extActions: PropTypes.object,
-  ext: PropTypes.array
-}
-function mapStateToProps(state: {ext: [any]}) {
-  return {
-    ext: state.ext
-  };
-}
+// prepare store
+// const history = createBrowserHistory();
+// const store = configureStore(history);
 
-function mapDispatchToProps(dispatch: any) {
-  return {
-    extActions: bindActionCreators(extActions, dispatch)
-  };
-}
+// ReactDOM.render(
+//       <App />,
+//   document.getElementById('root')
+// );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <ConnectedRouter history={history}>
+//       <App />
+//     </ConnectedRouter>
+//   </Provider>,
+//   document.getElementById('root')
+// );
 
