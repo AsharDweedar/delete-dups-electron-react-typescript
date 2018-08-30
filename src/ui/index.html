@@ -20,13 +20,22 @@
     import * as React from 'react';
     import * as ReactDOM from 'react-dom';
     import {AppContainer} from 'react-hot-loader';
+    import {Provider} from 'react-redux'
+
+    // import configureStore from './store/configureStore.js';
+    import App from './app';
+
+    // const store = configureStore();
+    const store = {ext: [".png"], extActions: {}};
+
+    ReactDOM.render(
+      <Provider store={store} subscribe={""}>
+        <AppContainer>
+          <App />
+        </AppContainer>
+      </Provider>
+    , document.getElementById('App'));
     
-    let render = () => {
-      const { App } = require('./app');
-      ReactDOM.render(<AppContainer><App /></AppContainer>, document.getElementById('App'));
-    }
-    
-    render();
     if (module.hot) { module.hot.accept(render); }
   </script>
   <link rel="stylesheet"  type="text/css" href="style.css"/>

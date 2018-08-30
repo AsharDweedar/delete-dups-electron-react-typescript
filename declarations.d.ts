@@ -23,7 +23,7 @@ declare interface ListPathsI { list: Array<pathI> }
 
 /* EXTs interfaces */
 declare interface ExtI { value: string }
-declare interface ExtListI { list: Array<ExtI> }
+declare interface ExtListI { list: Array<ExtI>; adding: ExtI}
 declare interface InputListExtI { add: Function; ext: Array<ExtI>, ExtCase: boolean }
 
 declare interface OptionsI {

@@ -41,7 +41,7 @@ export default class InputListExtensions extends React.Component<any, {}> {
                             className="btn-floating btn-small waves-effect waves-light green"> +
                         </button>
                     </li>
-                    <ListExt list={this.props["ext"].concat([this.state["adding"]])} />
+                    <ListExt list={this.props["ext"]} adding={this.state["adding"]} />
                 </ul>
             </div>
         );
