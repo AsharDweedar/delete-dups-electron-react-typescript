@@ -11,9 +11,9 @@ import { TodoModel } from 'app/models';
 import { omit } from 'app/utils';
 // import { Header, TodoList, Footer } from 'app/components';
 
-const FILTER_VALUES = (Object.keys(
-  TodoModel.Filter
-) as (keyof typeof TodoModel.Filter)[]).map(key => TodoModel.Filter[key]);
+// const FILTER_VALUES = (Object.keys(
+//   TodoModel.Filter
+// ) as (keyof typeof TodoModel.Filter)[]).map(key => TodoModel.Filter[key]);
 
 // const FILTER_FUNCTIONS: Record<
 //   TodoModel.Filter,
@@ -28,28 +28,21 @@ export namespace App {
   export interface Props extends RouteComponentProps<void> {
     todos: RootState.TodoState;
     paths: RootState.PathState;
+    extensions: RootState.ExtState;
     actions: Omit<typeof PathActions, 'Type'>;
-    filter: TodoModel.Filter;
   }
+  // filter: TodoModel.Filter;
 }
 
 @connect(
-  (state: RootState): Pick<App.Props, 'todos' | 'filter'> => {
-    const hash =
-      state.router.location && state.router.location.hash.replace('#', '');
-    const filter =
-      FILTER_VALUES.find(value => value === hash) || TodoModel.Filter.SHOW_ALL;
-    return {  todos: state.todos, filter };
+  (state: RootState): Pick<App.Props, 'paths' | 'extensions'> => {
+    return { paths: state.paths, extensions: state.extensions };
   },
   (dispatch: Dispatch): Pick<App.Props, 'actions'> => ({
     actions: bindActionCreators(omit(PathActions, 'Type'), dispatch),
   })
 )
 export class App extends React.Component<App.Props> {
-  static defaultProps: Partial<App.Props> = {
-    filter: TodoModel.Filter.SHOW_ALL,
-  };
-
   constructor(props: App.Props, context?: any) {
     super(props, context);
     this.handleClearCompleted = this.handleClearCompleted.bind(this);
@@ -83,7 +76,7 @@ export class App extends React.Component<App.Props> {
 
     return (
       <div className={style.normal}>
-      still works well and logs stuff
+        still works well and logs stuff
         {/* <Header addTodo={actions.addTodo} />
         <TodoList todos={filteredTodos} actions={actions} />
         <Footer
