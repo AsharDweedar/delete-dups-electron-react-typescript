@@ -6,11 +6,10 @@ import { RouteComponentProps } from 'react-router';
 
 // import InputListPaths from './input_list_paths';
 // import InputListExtensions from './input_list_extensions';
-// import Options from './options';
+import { Options, InputListPath, InputListExt } from 'app/components';
 // import { PathActions } from 'app/actions';
 
 // import { RootState } from 'app/reducers';
-
 
 export namespace GetStarted {
   export interface Props extends RouteComponentProps<void> {
@@ -33,7 +32,7 @@ export namespace GetStarted {
 export class GetStarted extends React.Component<GetStarted.Props, {}> {
   constructor(props: GetStarted.Props, context?: any) {
     super(props, context);
-    console.log("props within getting started: " , props);
+    console.log('props within getting started: ', props);
   }
   render() {
     return (
@@ -47,7 +46,7 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
           }}
         >
           This is get Started Component (first div ) ...
-          {/* <Options /> */}
+          <Options />
           <a
             className="waves-effect waves-light btn-large right"
             style={{ margin: '2.5em' }}
@@ -64,16 +63,16 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
           }}
         >
           This is get Started Component ...
-          {/* <InputListPaths
-            add={this.props.addPath}
-            paths={this.props["paths"]}
+          <InputListPath
+            // add={this.props.addPath}
+            // paths={this.props["paths"]}
           />
-          <InputListExtensions
-            add={this.props.addEXT}
-            ext={this.props["ext"]}
-            ExtCase={this.props.ExtCase}
-            ExtCaseChange={this.props.ExtCaseChange}
-          /> */}
+          <InputListExt
+            // add={this.props.addEXT}
+            // ext={this.props["ext"]}
+            // ExtCase={this.props.ExtCase}
+            // ExtCaseChange={this.props.ExtCaseChange}
+          />
         </div>
       </div>
     );

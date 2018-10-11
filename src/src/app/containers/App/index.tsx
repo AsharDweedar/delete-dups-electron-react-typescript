@@ -9,6 +9,7 @@ import { RootState } from 'app/reducers';
 import { TodoModel } from 'app/models';
 // import { TodoModel, PathModel } from 'app/models';
 import { omit } from 'app/utils';
+import { Footer } from 'app/components';
 // import { Header, TodoList, Footer } from 'app/components';
 
 // const FILTER_VALUES = (Object.keys(
@@ -74,8 +75,7 @@ export class App extends React.Component<App.Props> {
     //   0
     // );
 
-    return (
-      <div className={style.normal}>
+    return <div className={style.normal}>
         still works well and logs stuff
         {/* <Header addTodo={actions.addTodo} />
         <TodoList todos={filteredTodos} actions={actions} />
@@ -86,7 +86,7 @@ export class App extends React.Component<App.Props> {
           onClickClearCompleted={this.handleClearCompleted}
           onClickFilter={this.handleFilterChange}
         /> */}
-      </div>
-    );
+        <Footer />
+      </div>;
   }
 }
