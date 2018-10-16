@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as style from './style.css';
 // import { connect } from 'react-redux';
 // import { bindActionCreators, Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router';
@@ -35,46 +36,18 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
     console.log('props within getting started: ', props);
   }
   render() {
-    return (
-      <div>
-        <div
-          style={{
-            justifyContent: 'center',
-            display: 'flex',
-            alignContent: 'center',
-            padding: '0.5em',
-          }}
-        >
-          This is get Started Component (first div ) ...
+    return <div>
+        <div className={style.container1}>
           <Options />
-          <a
-            className="waves-effect waves-light btn-large right"
-            style={{ margin: '2.5em' }}
-          >
+          <a className="waves-effect waves-light btn-large right" style={{ margin: '2.5em' }}>
             <i className="material-icons left">cloud</i>
             Start Scanning
           </a>
         </div>
-        <div
-          style={{
-            justifyContent: 'center',
-            display: 'flex',
-            alignContent: 'flex-start',
-          }}
-        >
-          This is get Started Component ...
-          <InputListPath
-            // add={this.props.addPath}
-            // paths={this.props["paths"]}
-          />
-          <InputListExt
-            // add={this.props.addEXT}
-            // ext={this.props["ext"]}
-            // ExtCase={this.props.ExtCase}
-            // ExtCaseChange={this.props.ExtCaseChange}
-          />
+        <div style={{ justifyContent: 'center', display: 'flex', alignContent: 'flex-start' }}>
+          <InputListPath />
+          <InputListExt />
         </div>
-      </div>
-    );
+      </div>;
   }
 }
