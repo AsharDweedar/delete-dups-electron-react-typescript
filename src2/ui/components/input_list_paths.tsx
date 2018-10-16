@@ -15,7 +15,7 @@ export default class InputListPaths extends React.Component<InputPathsListI, any
     }
     render() {
         return (
-            <div style={{ display: "inline-block", "alignItems": "stretch", "margin": "50px", " maxWidth": "45%" }}>
+            <div style={{ display: "inline-block", "alignItems": "stretch", "margin": "50px", "maxWidth": "45%" }}>
                 <ul className="collection with-header">
                     <li className="collection-header">
                         <h4 style={{ display: "inline-block" }}>Paths</h4>
