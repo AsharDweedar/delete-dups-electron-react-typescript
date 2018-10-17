@@ -6,7 +6,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { omit } from 'app/utils';
 import { PathActions } from 'app/actions';
 import { RootState } from 'app/reducers';
-import remote from 'electron';
+
 @connect(
   (state: RootState): { paths: PathModel[] } => {
     //   (state: RootState): Pick<InputListPath.Props, 'paths'> => {
@@ -23,17 +23,16 @@ export class InputListPath extends React.Component<any> {
     super(props);
     console.log(props);
   }
-//   componentDidMount() {
-    // let ele = document.getElementById('selector');
-    // if (!!ele) {
-    //   ele.setAttribute('webkitdirectory', 'true');
-    // }
-    // this.refs.x.directory = true;
-    // this.refs.x.webkitdirectory = true;
-//   }
+  //   componentDidMount() {
+  // let ele = document.getElementById('selector');
+  // if (!!ele) {
+  //   ele.setAttribute('webkitdirectory', 'true');
+  // }
+  // this.refs.x.directory = true;
+  // this.refs.x.webkitdirectory = true;
+  //   }
   show(e: any) {
-      console.log(require('electron'));
-    const { dialog } = remote;
+    const { dialog } = require('electron').remote;
     var [path] = dialog.showOpenDialog({
       properties: ['openDirectory'],
     });
@@ -53,6 +52,9 @@ export class InputListPath extends React.Component<any> {
         <ul className="collection with-header">
           <li className="collection-header">
             <h4 style={{ display: 'inline-block' }}>Paths</h4>
+            <input type="file" onClick={this.show.bind(this)} />
+            <input type="directory" onClick={this.show.bind(this)} />
+            <input type="folder" onClick={this.show.bind(this)} />
             <button
               onClick={this.show.bind(this)}
               style={{ float: 'right' }}
