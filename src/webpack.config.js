@@ -1,15 +1,16 @@
-var webpack = require('webpack');
-var path = require('path');
+var webpack = require('webpack')
+var path = require('path')
 
 // variables
-var isProduction = process.argv.indexOf('-p') >= 0 || process.env.NODE_ENV === 'production';
-var sourcePath = path.join(__dirname, './src');
-var outPath = path.join(__dirname, './dist');
+var isProduction =
+  process.argv.indexOf('-p') >= 0 || process.env.NODE_ENV === 'production'
+var sourcePath = path.join(__dirname, './src')
+var outPath = path.join(__dirname, './dist')
 
 // plugins
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var MiniCssExtractPlugin = require('mini-css-extract-plugin')
+var WebpackCleanupPlugin = require('webpack-cleanup-plugin')
 
 module.exports = {
   context: sourcePath,
@@ -56,7 +57,9 @@ module.exports = {
               modules: true,
               sourceMap: !isProduction,
               importLoaders: 1,
-              localIdentName: isProduction ? '[hash:base64:5]' : '[local]__[hash:base64:5]'
+              localIdentName: isProduction
+                ? '[hash:base64:5]'
+                : '[local]__[hash:base64:5]'
             }
           },
           {
@@ -68,7 +71,7 @@ module.exports = {
                 require('postcss-url')(),
                 require('postcss-preset-env')({
                   /* use stage 2 features (defaults) */
-                  stage: 2,
+                  stage: 2
                 }),
                 require('postcss-reporter')(),
                 require('postcss-browser-reporter')({
@@ -79,10 +82,21 @@ module.exports = {
           }
         ]
       },
+      // {
+      //   test: /\.less$/,
+      //   loader: 'less-loader' // compiles Less to CSS
+      // },
+      {
+        test: /\.less$/,
+        use: ["style-loader", { loader: 'css-loader', options: { sourceMap: 1 } }, "less-loader"]
+      },
       // static assets
       { test: /\.html$/, use: 'html-loader' },
       { test: /\.(a?png|svg)$/, use: 'url-loader?limit=10000' },
-      { test: /\.(jpe?g|gif|bmp|mp3|mp4|ogg|wav|eot|ttf|woff|woff2)$/, use: 'file-loader' }
+      {
+        test: /\.(jpe?g|gif|bmp|mp3|mp4|ogg|wav|eot|ttf|woff|woff2)$/,
+        use: 'file-loader'
+      }
     ]
   },
   optimization: {
@@ -134,4 +148,4 @@ module.exports = {
     fs: 'empty',
     net: 'empty'
   }
-};
+}
