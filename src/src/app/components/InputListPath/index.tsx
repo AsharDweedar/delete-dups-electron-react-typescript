@@ -32,12 +32,20 @@ export class InputListPath extends React.Component<any> {
   // this.refs.x.webkitdirectory = true;
   //   }
   show(e: any) {
-    const { dialog } = require('electron').remote;
-    var [path] = dialog.showOpenDialog({
-      properties: ['openDirectory'],
+    // const { dialog } = require('electron').remote;
+    // var [path] = dialog.showOpenDialog({
+    //   properties: ['openDirectory'],
+    // });
+    // this.props.actions.addPath({ path });
+    console.log("called ")
+    var remote = require('remote');
+    var dialog = remote.require('electron').dialog;
+
+    var path = dialog.showOpenDialog({
+      properties: ['openDirectory']
     });
-    this.props.actions.addPath({ path });
-    console.log(e);
+
+    console.log(path);
   }
   render() {
     return (
