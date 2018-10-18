@@ -38,14 +38,14 @@ export class InputListPath extends React.Component<any> {
     // });
     // this.props.actions.addPath({ path });
     console.log("called ")
-    var remote = require('remote');
-    var dialog = remote.require('electron').dialog;
+    // var remote = require('remote');
+    // var dialog = remote.require('electron').dialog;
 
-    var path = dialog.showOpenDialog({
-      properties: ['openDirectory']
-    });
+    // var path = dialog.showOpenDialog({
+    //   properties: ['openDirectory']
+    // });
 
-    console.log(path);
+    // console.log(path);
   }
   render() {
     return (

@@ -1,4 +1,4 @@
-export { Footer } from './Footer';
+export { LocalFooter } from './Footer';
 export { Header } from './Header';
 export { InputListExt } from './InputListExt';
 export { InputListPath } from './InputListPath';
