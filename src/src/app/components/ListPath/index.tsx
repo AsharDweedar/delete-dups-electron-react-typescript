@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { PathModel} from 'app/models'
 export class ListPath extends React.Component<ListPath.Props> {
   render() {
     return (
@@ -13,5 +13,5 @@ export class ListPath extends React.Component<ListPath.Props> {
 export default ListPath;
 
 export namespace ListPath {
-  export interface Props {}
+  export interface Props { paths: PathModel[]; }
 }

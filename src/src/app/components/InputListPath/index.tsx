@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import { ListPath } from 'app/components';
+import { ListPath } from 'app/components';
 import { PathModel } from 'app/models';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
@@ -17,11 +17,15 @@ import { RootState } from 'app/reducers';
     actions: bindActionCreators(omit(PathActions, 'Type'), dispatch),
   })
 )
-export class InputListPath extends React.Component<any> {
+export class InputListPath extends React.Component<
+  InputListPath.Props,
+  { paths: PathModel[] }
+> {
   // export class InputListPath extends React.Component<InputListPath.Props> {
-  constructor(props: {}) {
+  constructor(props: InputListPath.Props) {
     super(props);
     console.log(props);
+    this.state = { paths: this.props['paths'] };
   }
   //   componentDidMount() {
   // let ele = document.getElementById('selector');
@@ -37,7 +41,7 @@ export class InputListPath extends React.Component<any> {
     //   properties: ['openDirectory'],
     // });
     // this.props.actions.addPath({ path });
-    console.log("called ")
+    console.log('called ', e);
     // var remote = require('remote');
     // var dialog = remote.require('electron').dialog;
 
@@ -61,15 +65,13 @@ export class InputListPath extends React.Component<any> {
           <li className="collection-header">
             <h4 style={{ display: 'inline-block' }}>Paths</h4>
             <input type="file" onClick={this.show.bind(this)} />
-            <input type="directory" onClick={this.show.bind(this)} />
-            <input type="folder" onClick={this.show.bind(this)} />
             <button
               onClick={this.show.bind(this)}
               style={{ float: 'right' }}
               className="btn-floating btn-large waves-effect waves-light green"
             />
           </li>
-          {/* <ListPath list={this.props['paths']} /> */}
+          <ListPath paths={this.state['paths']} />
         </ul>
       </div>
     );
@@ -80,8 +82,8 @@ export default InputListPath;
 
 export namespace InputListPath {
   export interface Props {
-    // paths: PathModel[];
-    // dispatch: Omit<typeof PathActions, 'Type'>;
-    // actions: Omit<typeof PathActions, 'Type'>;
+    paths: PathModel[];
+    actions: Omit<typeof PathActions, 'Type'>;
   }
+  // dispatch: Omit<typeof PathActions, 'Type'>;
 }
