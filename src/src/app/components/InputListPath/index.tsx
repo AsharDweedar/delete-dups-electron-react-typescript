@@ -6,7 +6,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { omit } from 'app/utils';
 import { PathActions } from 'app/actions';
 import { RootState } from 'app/reducers';
-
+// Pick<P, Exclude<keyof P, keyof IMessageProps>>
 @connect(
   (state: RootState): { paths: PathModel[] } => {
     //   (state: RootState): Pick<InputListPath.Props, 'paths'> => {
@@ -85,5 +85,4 @@ export namespace InputListPath {
     paths: PathModel[];
     actions: Omit<typeof PathActions, 'Type'>;
   }
-  // dispatch: Omit<typeof PathActions, 'Type'>;
 }
