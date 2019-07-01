@@ -8,9 +8,9 @@ export interface PathModel {
 }
 
 export namespace PathModel {
-//     export enum Filter {
-//         SHOW_ALL = 'all',
-//         SHOW_ACTIVE = 'active',
-//         SHOW_COMPLETED = 'completed'
-//     }
+    // export enum Filter {
+    //     SHOW_ALL = 'all',
+    //     SHOW_ACTIVE = 'active',
+    //     SHOW_COMPLETED = 'completed'
+    // }
 }

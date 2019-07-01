@@ -1,35 +1,31 @@
 import * as React from 'react';
 import * as style from './style.css';
-// import { connect } from 'react-redux';
-// import { bindActionCreators, Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router';
-// import { omit } from 'app/utils';
+import { omit } from 'app/utils';
 
-// import InputListPaths from './input_list_paths';
-// import InputListExtensions from './input_list_extensions';
-import { Options, InputListPath, InputListExt } from 'app/components';
-// import { PathActions } from 'app/actions';
+import { Options, InputListPath, InputListExt } from "app/components";
+import { PathActions } from 'app/actions';
 
-// import { RootState } from 'app/reducers';
+import { RootState } from 'app/reducers';
 
 export namespace GetStarted {
   export interface Props extends RouteComponentProps<void> {
-    // todos: RootState.TodoState;
-    // paths: RootState.PathState;
-    // actions: Omit<typeof PathActions, 'Type'>;
-    // filter: TodoModel.Filter;
+    paths: RootState.PathState;
+    actions: Omit<typeof PathActions, 'Type'>;
   }
 }
-// @connect(
-//   (state: RootState): Pick<GetStarted.Props, 'paths'> => {
-//     // const hash =
-//     //     state.router.location && state.router.location.hash.replace('#', '');
-//     return { paths: state.paths };
-//   },
-//   (dispatch: Dispatch): Pick<GetStarted.Props, 'actions'> => ({
-//     actions: bindActionCreators(omit(PathActions, 'Type'), dispatch),
-//   })
-// )
+@connect(
+  (state: RootState): Pick<GetStarted.Props, 'paths'> => {
+    // const hash =
+    //     state.router.location && state.router.location.hash.replace('#', '');
+    return { paths: state.paths };
+  },
+  (dispatch: Dispatch): Pick<GetStarted.Props, 'actions'> => ({
+    actions: bindActionCreators(omit(PathActions, 'Type'), dispatch),
+  })
+)
 export class GetStarted extends React.Component<GetStarted.Props, {}> {
   constructor(props: GetStarted.Props, context?: any) {
     super(props, context);

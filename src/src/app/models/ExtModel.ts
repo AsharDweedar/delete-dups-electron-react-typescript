@@ -7,4 +7,9 @@ export interface ExtModel {
 }
 
 export namespace ExtModel {
+    // export enum Filter {
+    //     ADD_EXT = 'all',
+    //     DELETE_EXT = 'active',
+    //     TOGGLE_SENSITIVE = 'completed'
+    // }
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { ListPath } from 'app/components';
 // import { PathModel } from 'app/models';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { omit } from 'app/utils';
+// import { connect } from 'react-redux';
+// import { bindActionCreators, Dispatch } from 'redux';
+// import { omit } from 'app/utils';
 import { PathActions } from 'app/actions';
 import { RootState } from 'app/reducers';
 // Pick<P, Exclude<keyof P, keyof IMessageProps>>
@@ -16,6 +16,7 @@ export namespace InputListPath {
 }
 
 export class InputListPath extends React.Component<InputListPath.Props> {
+// export class InputListPath extends React.Component<InputListPath.Props> {
   static defaultProps: Partial<InputListPath.Props> = { paths: [] };
 
   // export class InputListPath extends React.Component<InputListPath.Props> {
@@ -81,15 +82,15 @@ export class InputListPath extends React.Component<InputListPath.Props> {
   }
 }
 
-export default connect<
-  Pick<InputListPath.Props, 'paths'>,
-  Pick<InputListPath.Props, 'actions'>,
-  {}
->(
-  (state: RootState): Pick<InputListPath.Props, 'paths'> => {
-    return { paths: state.paths };
-  },
-  (dispatch: Dispatch): Pick<InputListPath.Props, 'actions'> => ({
-    actions: bindActionCreators(omit(PathActions, 'Type'), dispatch),
-  })
-)(InputListPath);
+// export default connect<
+//   Pick<InputListPath.Props, 'paths'>,
+//   Pick<InputListPath.Props, 'actions'>,
+//   {}
+// >(
+//   (state: RootState): Pick<InputListPath.Props, 'paths'> => {
+//     return { paths: state.paths };
+//   },
+//   (dispatch: Dispatch): Pick<InputListPath.Props, 'actions'> => ({
+//     actions: bindActionCreators(omit(PathActions, 'Type'), dispatch),
+//   })
+// )(InputListPath);
