@@ -1,7 +1,7 @@
 export { LocalFooter } from './Footer';
 export { Header } from './Header';
 export { InputListExt } from './InputListExt';
-export { InputListPath } from './InputListPath';
+export { InputListPaths } from './InputListPaths';
 export { ListExt } from './ListExt';
 export { ListPath } from './ListPath';
 export { Options } from './Options';

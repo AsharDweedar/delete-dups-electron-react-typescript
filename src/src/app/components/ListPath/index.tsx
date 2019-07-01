@@ -1,19 +1,34 @@
 import * as React from "react";
 import { PathModel } from "app/models";
 export class ListPath extends React.Component<ListPath.Props> {
+  deletePath(e: any) {
+    console.log(e.target);
+    var id = e.target["id"];
+    console.log("got  id ", id, "to delete ");
+    this.props.deletePath({ id: parseInt(id) });
+  }
   render() {
+    let deletePath = this.deletePath.bind(this);
     let list = this.props.paths;
     let HTMLlist = list.length
-      ? list.map(({ path }: { path: string }) => (
-          <li className="collection-item" key={path}>
-            {/* {<Element path={path.split("/")} />} */}
-            {<Element path={path} />}
+      ? list.map((path: PathModel) => (
+          <li className="collection-item" key={path.path}>
+            {<Element path={path} deletePath={deletePath} />}
           </li>
         ))
       : [
           <li className="collection-item" key="empty">
-            {/* {<Element path={"empty-paths-list".split("/")} />} */}
-            {<Element path={"empty-paths-list"} />}
+            {
+              <Element
+                path={{
+                  path: "No Paths Selected",
+                  id: -1,
+                  scan_completed: false,
+                  recursively: false,
+                }}
+                deletePath={deletePath}
+              />
+            }
           </li>,
         ];
 
@@ -26,18 +41,31 @@ export default ListPath;
 export namespace ListPath {
   export interface Props {
     paths: PathModel[];
+    deletePath: Function;
   }
 }
 
-let Element = ({ path }: { path: string }) => (
-  <li className="collection-item">
-    <div>
-      {path}
-      {path != "empty-extensions-list" && (
-        <a href="#!" className="secondary-content">
-          <i className="material-icons">delete</i>
-        </a>
-      )}
-    </div>
-  </li>
-);
+let Element = (params: {
+  path: PathModel;
+  deletePath: (event: any) => void;
+}) => {
+  var { path, deletePath } = params;
+  return (
+    <li className="collection-item">
+      <div>
+        {path.path}
+        {path.id != -1 && (
+          <a href="#!" className="secondary-content">
+            <i
+              className="material-icons"
+              onClick={deletePath}
+              id={`${path.id}`}
+            >
+              delete
+            </i>
+          </a>
+        )}
+      </div>
+    </li>
+  );
+};

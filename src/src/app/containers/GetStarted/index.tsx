@@ -5,7 +5,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router';
 import { omit } from 'app/utils';
 
-import { Options, InputListPath, InputListExt } from "app/components";
+import { Options, InputListPaths, InputListExt } from "app/components";
 import { PathActions } from 'app/actions';
 
 import { RootState } from 'app/reducers';
@@ -41,7 +41,7 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
           </a>
         </div>
         <div style={{ justifyContent: 'center', display: 'flex', alignContent: 'flex-start' }}>
-          <InputListPath />
+          <InputListPaths paths={this.props.paths} actions={this.props.actions}/>
           <InputListExt />
         </div>
       </div>;

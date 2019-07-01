@@ -8,19 +8,19 @@ import { PathActions } from 'app/actions';
 import { RootState } from 'app/reducers';
 // Pick<P, Exclude<keyof P, keyof IMessageProps>>
 
-export namespace InputListPath {
+export namespace InputListPaths {
   export interface Props {
     paths: RootState.PathState;
     actions: PathActions;
   }
 }
 
-export class InputListPath extends React.Component<InputListPath.Props> {
-// export class InputListPath extends React.Component<InputListPath.Props> {
-  static defaultProps: Partial<InputListPath.Props> = { paths: [] };
+export class InputListPaths extends React.Component<InputListPaths.Props> {
+// export class InputListPaths extends React.Component<InputListPaths.Props> {
+  // static defaultProps: Partial<InputListPaths.Props> = { paths: [] };
 
-  // export class InputListPath extends React.Component<InputListPath.Props> {
-  constructor(props: InputListPath.Props, context?: any) {
+  // export class InputListPaths extends React.Component<InputListPaths.Props> {
+  constructor(props: InputListPaths.Props, context?: any) {
     super(props, context);
     console.log("input list path component props", props);
   }
@@ -46,51 +46,32 @@ export class InputListPath extends React.Component<InputListPath.Props> {
   }
   update_list(e: any) {
     let file = e.target.files[0].path;
-    console.log('called onChange ', file);
-    this.props.actions.addPath(file);
+    this.props.actions.addPath({path: file});
   }
   render() {
     const { paths } = this.props;
-    return (
-      <div
-        style={{
-          display: 'inline-block',
-          alignItems: 'stretch',
-          margin: '50px',
-          maxWidth: '45%',
-        }}
-      >
+    return <div style={{ display: "inline-block", alignItems: "stretch", margin: "50px", maxWidth: "45%" }}>
         <ul className="collection with-header">
           <li className="collection-header">
-            <h4 style={{ display: 'inline-block' }}>Paths</h4>
-            <input
-              type="file"
-              style={{ display: 'none' }}
-              id="selector"
-              onChange={this.update_list.bind(this)}
-            />
-            <button
-              onClick={this.show.bind(this)}
-              style={{ float: 'right' }}
-              className="btn-floating btn-large waves-effect waves-light green"
-            />
+            <h4 style={{ display: "inline-block" }}>Paths</h4>
+            <input type="file" style={{ display: "none" }} id="selector" onChange={this.update_list.bind(this)} />
+            <button onClick={this.show.bind(this)} style={{ float: "right" }} className="btn-floating btn-large waves-effect waves-light green"> + </button>
           </li>
-          <ListPath paths={paths} />
+        <ListPath paths={paths} deletePath={this.props.actions.deletePath}/>
         </ul>
-      </div>
-    );
+      </div>;
   }
 }
 
 // export default connect<
-//   Pick<InputListPath.Props, 'paths'>,
-//   Pick<InputListPath.Props, 'actions'>,
+//   Pick<InputListPaths.Props, 'paths'>,
+//   Pick<InputListPaths.Props, 'actions'>,
 //   {}
 // >(
-//   (state: RootState): Pick<InputListPath.Props, 'paths'> => {
+//   (state: RootState): Pick<InputListPaths.Props, 'paths'> => {
 //     return { paths: state.paths };
 //   },
-//   (dispatch: Dispatch): Pick<InputListPath.Props, 'actions'> => ({
+//   (dispatch: Dispatch): Pick<InputListPaths.Props, 'actions'> => ({
 //     actions: bindActionCreators(omit(PathActions, 'Type'), dispatch),
 //   })
-// )(InputListPath);
+// )(InputListPaths);
