@@ -11,5 +11,5 @@ export { RootState, RouterState };
 export const rootReducer = combineReducers<RootState>({
   router: routerReducer as any,
   paths: pathReducer as any,
-  extensions: extReducer as any,
+  exts: extReducer as any,
 });

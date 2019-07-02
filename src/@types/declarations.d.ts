@@ -1,4 +1,4 @@
-declare module 'belle';
+// declare module 'belle';
 declare module 'electron';
 
 declare interface EventI { value: boolean; target: {value: any} }

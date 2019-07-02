@@ -8,11 +8,11 @@ export namespace ExtActions {
     TOGGLE_SENSITIVE = 'TOGGLE_SENSITIVE',
   }
 
-  export const addTodo = createAction<PartialPick<ExtModel, 'ext'>>(
+  export const addExt = createAction<PartialPick<ExtModel, 'ext'>>(
     Type.ADD_EXT
   );
-  export const deleteTodo = createAction<ExtModel['id']>(Type.DELETE_EXT);
-  export const completeTodo = createAction<ExtModel['id']>(Type.TOGGLE_SENSITIVE);
+  export const deleteExt = createAction<ExtModel['id']>(Type.DELETE_EXT);
+  export const toggleSensitive = createAction<ExtModel['id']>(Type.TOGGLE_SENSITIVE);
 }
 
 export type ExtActions = Omit<typeof ExtActions, 'Type'>;

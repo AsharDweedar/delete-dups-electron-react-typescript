@@ -17,7 +17,6 @@ export const pathReducer = handleActions<RootState.PathState, PathModel>(
     [PathActions.Type.ADD_PATH]: (state, action) => {
       if (action.payload && action.payload.path) {
         let list = state.length == 1 && state[0]["id"] == -1 ? [] : state;
-        console.log("id to add", list.length + 1);
         return [
           ...list,
           {

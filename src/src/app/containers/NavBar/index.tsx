@@ -22,12 +22,12 @@ export class NavBar extends React.Component<NavBar.Props> {
                 <Link to="/about">ABOUT</Link>
               </NavItem>
               <NavItem>
-                <Link to="/get_started">Getting started</Link>
+                <Link to="/GetStarted">Getting started</Link>
               </NavItem>
             </Navbar>
             <Route path="/about" component={About} />
             <Route path="/home" component={Home} />
-            <Route path="/get_started" component={GetStarted} />
+            <Route path="/GetStarted" component={GetStarted} />
           </div>
         </Router>
       </div>

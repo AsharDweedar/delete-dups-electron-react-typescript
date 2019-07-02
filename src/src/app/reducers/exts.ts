@@ -1,12 +1,12 @@
-import { handleActions } from 'redux-actions';
-import { RootState } from './state';
-import { ExtActions } from 'app/actions/extensions';
-import { ExtModel } from 'app/models';
+import { handleActions } from "redux-actions";
+import { RootState } from "./state";
+import { ExtActions } from "app/actions/extensions";
+import { ExtModel } from "app/models";
 
 const initialState: RootState.ExtState = [
   {
     id: 1,
-    ext: '.png',
+    ext: ".png",
     sensitive: true,
   },
 ];
@@ -14,21 +14,24 @@ const initialState: RootState.ExtState = [
 export const extReducer = handleActions<RootState.ExtState, ExtModel>(
   {
     [ExtActions.Type.ADD_EXT]: (state, action) => {
-      if (action.payload && action.payload.ext) {
+      if (action.payload && action.payload.ext != "") {
+        let list = state.length == 1 && state[0]["id"] == -1 ? [] : state;
         return [
-          {
-            id: state.reduce((max, ext) => Math.max(ext.id || 1, max), 0) + 1,
-            sensitive: true,
-            ext: action.payload.ext,
-          },
-          ...state,
+          ...list,
+          { id: list.length + 1, sensitive: true, ext: action.payload.ext },
         ];
       } else {
         return state;
       }
     },
     [ExtActions.Type.DELETE_EXT]: (state, action) => {
-      return state.filter(ext => ext.id !== (action.payload as any));
+      var id = (action["payload"] || { id: -1 })["id"];
+      state = state.filter(ext => ext.id !== id);
+      return state.length
+        ? state.map((ele, i) => {
+            return { ...ele, id: i };
+          })
+        : initialState;
     },
     [ExtActions.Type.TOGGLE_SENSITIVE]: (state, action) => {
       return state.map(

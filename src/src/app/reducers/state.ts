@@ -3,7 +3,7 @@ import { RouterState } from 'react-router-redux';
 
 export interface RootState {
   paths: RootState.PathState;
-  extensions: RootState.ExtState;
+  exts: RootState.ExtState;
   router: RouterState;
 }
 
