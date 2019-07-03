@@ -152,5 +152,16 @@ module.exports = {
     // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
     fs: 'empty',
     net: 'empty'
-  }
+  },
+  externals: [
+    (function () {
+      var IGNORES = ['electron']
+      return function (context, request, callback) {
+        if (IGNORES.indexOf(request) >= 0) {
+          return callback(null, "require('" + request + "')")
+        }
+        return callback()
+      }
+    })()
+  ]
 }

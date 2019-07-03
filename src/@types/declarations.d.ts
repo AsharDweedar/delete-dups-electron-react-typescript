@@ -1,4 +1,5 @@
 // declare module 'belle';
+declare module 'pouchdb-browser';
 declare module 'electron';
 
 declare interface EventI { value: boolean; target: {value: any} }
