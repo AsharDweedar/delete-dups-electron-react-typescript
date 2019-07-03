@@ -11,10 +11,19 @@ const initialState: RootState.ExtState = [
   },
 ];
 
+function validExt(ext: string) {
+  return ext.length > 0 && ext[0] == ".";
+}
+
 export const extReducer = handleActions<RootState.ExtState, ExtModel>(
   {
     [ExtActions.Type.ADD_EXT]: (state, action) => {
       if (action.payload && action.payload.ext != "") {
+        let filtered = state.filter(
+          ({ ext }) => (action.payload || { ext: "" }).ext == ext
+        );
+        if (filtered.length && validExt(action.payload.ext)) return state;
+
         let list = state.length == 1 && state[0]["id"] == -1 ? [] : state;
         return [
           ...list,

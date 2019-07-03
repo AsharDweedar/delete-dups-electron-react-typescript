@@ -7,9 +7,9 @@ import { omit } from "app/utils";
 
 import { Options } from "app/containers/Options";
 import { InputListPaths } from "app/containers/InputListPaths";
-import { InputListExts } from "../InputListExt";
-import { PathActions } from "app/actions";
+import { InputListExts } from "app/containers/InputListExt";
 
+import { PathActions } from "app/actions";
 import { RootState } from "app/reducers";
 
 export namespace GetStarted {
@@ -29,6 +29,10 @@ export namespace GetStarted {
 export class GetStarted extends React.Component<GetStarted.Props, {}> {
   constructor(props: GetStarted.Props, context?: any) {
     super(props, context);
+    this.startScan = this.startScan.bind(this);
+  }
+  startScan() {
+    console.log("start scan !!!!!!!!!!!!!!!!!")
   }
   render() {
     return (
@@ -36,6 +40,7 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
         <div className={style.container1}>
           <Options />
           <a
+            onClick={this.startScan}
             className="waves-effect waves-light btn-large right"
             style={{ margin: "2.5em" }}
           >

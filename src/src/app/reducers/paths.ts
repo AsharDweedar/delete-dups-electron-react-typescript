@@ -16,6 +16,10 @@ export const pathReducer = handleActions<RootState.PathState, PathModel>(
   {
     [PathActions.Type.ADD_PATH]: (state, action) => {
       if (action.payload && action.payload.path) {
+        let filtered = state.filter(
+          ({ path }) => (action.payload || { path: "" }).path == path
+        );
+        if (filtered.length) return state;
         let list = state.length == 1 && state[0]["id"] == -1 ? [] : state;
         return [
           ...list,

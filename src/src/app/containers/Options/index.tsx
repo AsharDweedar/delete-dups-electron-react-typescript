@@ -39,8 +39,6 @@ export class Options extends React.Component<Options.Props, Options.State> {
     this.props.actions.updateOpt(opt);
   }
   render() {
-    console.log("props at render options ");
-    console.log(this.props);
     var opts = this.props.opts;
     var list = [];
     for (var opt of opts) {
