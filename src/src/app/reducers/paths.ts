@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 import { RootState } from "./state";
-import { PathActions } from "app/actions/paths";
+import { PathActions } from "app/actions";
 import { PathModel } from "app/models";
 
 const initialState: RootState.PathState = [

@@ -2,9 +2,7 @@ import * as React from "react";
 import { PathModel } from "app/models";
 export class ListPath extends React.Component<ListPath.Props> {
   deletePath(e: any) {
-    console.log(e.target);
     var id = e.target["id"];
-    console.log("got  id ", id, "to delete ");
     this.props.deletePath({ id: parseInt(id) });
   }
   render() {

@@ -7,7 +7,6 @@ import Icon from "antd/lib/icon";
 
 export class ListExt extends React.Component<ListExt.Props> {
   render() {
-    console.log(this.props);
     let list = this.props.exts;
     let HtmlList = list.map((ext: ExtModel) => (
       <Element
@@ -55,7 +54,6 @@ const Element = ({
   deleteExt: Function;
 }) => {
   var value = ext.ext;
-  console.log("value", value);
   return value == "" ? null : (
     <li className="collection-item">
       <div>

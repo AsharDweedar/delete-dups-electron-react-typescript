@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 import { RootState } from "./state";
-import { ExtActions } from "app/actions/extensions";
+import { ExtActions } from "app/actions";
 import { ExtModel } from "app/models";
 
 const initialState: RootState.ExtState = [

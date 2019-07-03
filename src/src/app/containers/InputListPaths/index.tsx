@@ -16,29 +16,12 @@ export namespace InputListPaths {
   }
 }
 
-// interface MyStateProps {
-//   paths: RootState.PathState;
-// }
-
-// interface MyDispatchProps {
-//   actions: PathActions;
-// }
-
-// interface MyOwnProps {}
-
-// type MyProps = MyStateProps & MyDispatchProps & MyOwnProps;
-// function cb() {}
-
 @connect<
   Pick<InputListPaths.Props, "paths">,
   Pick<InputListPaths.Props, "actions">,
   {}
 >(
   (state: RootState): Pick<InputListPaths.Props, "paths"> => {
-    console.log("state of InputListPaths connect");
-    console.log(state);
-    // const hash =
-    //     state.router.location && state.router.location.hash.replace('#', '');
     return { paths: state.paths };
   },
   (dispatch: Dispatch): Pick<InputListPaths.Props, "actions"> => ({
@@ -46,19 +29,13 @@ export namespace InputListPaths {
   })
 )
 export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
-  // class InputListPaths extends React.Component<MyProps, {}> {
-  // static defaultProps: Partial<InputListPaths.Props> = { paths: [] };
   public static defaultProps = {
     paths: [],
     actions: { addPath: () => alert("Add Failed") },
   };
 
   constructor(props: InputListPaths.Props, context?: any) {
-    // constructor(props: MyProps, context?: any) {
     super(props, context);
-    console.log("input list path component props", props);
-    console.log("context");
-    console.log(context);
   }
   componentDidMount() {
     let ele = document.getElementById("selector");
@@ -72,12 +49,10 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
     }
   }
   show(e: any) {
-    console.log("called show func");
     var ele = document.getElementById("selector") || {
       click: () => {},
       refs: { x: {} },
     };
-    console.log(ele);
     ele.click();
   }
   update_list(e: any) {
@@ -116,17 +91,6 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
     );
   }
 }
-
-// function mapStateToProps(state: RootState, ownProps: MyOwnProps): MyStateProps {
-//   console.log("state of getting InputListPaths connect");
-//   console.log(state);
-//   console.log(ownProps);
-//   return { paths: state.paths };
-// }
-
-// function mapDispatchToProps(dispatch: Dispatch): MyDispatchProps {
-//   return { actions: bindActionCreators(omit(PathActions, "Type"), dispatch) };
-// }
 
 // export default connect<MyStateProps, MyDispatchProps, MyOwnProps>(
 //   mapStateToProps,

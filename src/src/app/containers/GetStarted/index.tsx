@@ -5,7 +5,7 @@ import { bindActionCreators, Dispatch } from "redux";
 import { RouteComponentProps } from "react-router";
 import { omit } from "app/utils";
 
-import { Options } from "app/components";
+import { Options } from "app/containers/Options";
 import { InputListPaths } from "app/containers/InputListPaths";
 import { InputListExts } from "../InputListExt";
 import { PathActions } from "app/actions";
@@ -20,10 +20,6 @@ export namespace GetStarted {
 }
 @connect(
   (state: RootState): Pick<GetStarted.Props, "paths"> => {
-    console.log("state of getting started connect");
-    console.log(state);
-    // const hash =
-    //     state.router.location && state.router.location.hash.replace('#', '');
     return { paths: state.paths };
   },
   (dispatch: Dispatch): Pick<GetStarted.Props, "actions"> => ({
@@ -33,7 +29,6 @@ export namespace GetStarted {
 export class GetStarted extends React.Component<GetStarted.Props, {}> {
   constructor(props: GetStarted.Props, context?: any) {
     super(props, context);
-    console.log("props within getting started: ", props);
   }
   render() {
     return (

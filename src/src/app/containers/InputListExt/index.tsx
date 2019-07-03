@@ -22,10 +22,6 @@ export namespace InputListExts {
 
 @connect(
   (state: RootState): Pick<InputListExts.Props, "exts"> => {
-    console.log("state of getting InputListExts connect");
-    console.log(state);
-    // const hash =
-    //     state.router.location && state.router.location.hash.replace('#', '');
     return { exts: state.exts };
   },
   (dispatch: Dispatch): Pick<InputListExts.Props, "actions"> => ({
