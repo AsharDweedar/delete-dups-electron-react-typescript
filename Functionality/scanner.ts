@@ -38,6 +38,8 @@ export default async function scanFolder(
       });
     }
   }
+  console.log("folder. .........................")
+  console.log(folder)
   event.sender.send("scan-response", {
     path: folder,
     status: "success",
@@ -47,14 +49,7 @@ export default async function scanFolder(
 }
 
 function hashFile(path: string) {
-  var content = fs.readFileSync(path, "utf8");
-  var hash = sha256.create();
-  content.split("\n").forEach(line => {
-    hash.update(line);
-  });
-  // console.log("hash hex", hash);
-  // hash.hex();
-  // console.log("hash array", hash);
-  // hash.array();
-  return `${Math.random()}`;
+  let content = fs.readFileSync(path, "utf8");
+  let newHash = sha256(content);
+  return typeof newHash == "string" ? newHash : `${Math.random()}`;
 }

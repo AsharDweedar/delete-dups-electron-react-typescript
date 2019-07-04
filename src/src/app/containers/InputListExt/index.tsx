@@ -1,15 +1,15 @@
 import * as React from "react";
-import { ExtTextInput } from "app/components";
+import { ExtTextInput } from "../../components";
 // import { TextInput } from "react-materialize";
 // import { TextInput } from "belle";
-import { ExtModel } from "app/models";
+import { ExtModel } from "../../models";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import { omit } from "app/utils";
-import { RootState } from "app/reducers";
+import { omit } from "../../utils";
+import { RootState } from "../../reducers";
 
-import { ListExt } from "app/components";
-import { ExtActions } from "app/actions";
+import { ListExt } from "../../components";
+import { ExtActions } from "../../actions";
 // Pick<P, Exclude<keyof P, keyof IMessageProps>>
 
 export namespace InputListExts {
