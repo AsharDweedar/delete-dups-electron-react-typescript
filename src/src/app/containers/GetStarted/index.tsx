@@ -94,7 +94,7 @@ function saveFolderToDB(
   cb: Function
 ) {
   console.log("saveFolderToDB..........");
-  FoldersDB.get(arg.path)
+  FoldersDB.get(pathFromState.id)
     .then(() => {
       console.log("folder already inserted ");
       console.log("folder already inserted ");
