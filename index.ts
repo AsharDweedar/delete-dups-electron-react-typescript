@@ -6,7 +6,6 @@ import { enableLiveReload } from "electron-compile";
 
 import createMenu from "./menu";
 import eventListeners from "./eventListeners";
-eventListeners(ipcMain);
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,7 +19,7 @@ if (isDevMode) {
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1400,
+    width: 1800,
     height: 600,
   });
 
@@ -28,6 +27,9 @@ const createWindow = async () => {
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/src/dist/index.html`);
+  // connect react js to electorn
+  eventListeners(ipcMain);
+
   // mainWindow.loadURL(`file://${__dirname}/ui/index.html`);
 
   // Open the DevTools.

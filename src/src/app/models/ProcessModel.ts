@@ -1,7 +1,8 @@
 /** ProcessMVC model definitions **/
 
 export interface ProcessModel {
-    scanOnGoing: boolean;
+  scanOnGoing: boolean;
+  progress: number;
 }
 
 export namespace ProcessModel {

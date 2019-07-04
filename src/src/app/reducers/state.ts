@@ -1,4 +1,4 @@
-import { PathModel, ExtModel, OptModel, ProcessModel } from "app/models";
+import { PathModel, ExtModel, OptModel, ProcessModel } from '../models';
 import { RouterState } from "react-router-redux";
 
 export interface RootState {
