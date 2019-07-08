@@ -8,7 +8,6 @@ const initialState: RootState.ProcessState = {
   progress: 0,
 };
 
-
 export const processReducer = handleActions<RootState.ProcessState, RootState>(
   {
     [ProcessActions.Type.SCANNING_START]: (state, action) => {
@@ -20,10 +19,12 @@ export const processReducer = handleActions<RootState.ProcessState, RootState>(
     [ProcessActions.Type.SCAN_PROGRESS]: (state, action) => {
       if (action.payload) {
         let progress = action.payload["process"]["progress"];
+        let allPAths = action.payload["paths"].length;
+        console.log("progress: ", progress);
 
         return {
           ...state,
-          scanOnGoing: progress != 1,
+          scanOnGoing: progress / allPAths != 1,
           progress: progress,
         };
       } else {

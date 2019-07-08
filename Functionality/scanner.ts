@@ -10,8 +10,8 @@ export default async function scanFolder(
   var files = fs.readdirSync(folder);
   // remove hidden folders
   files = files.filter(item => !/(^|\/)\.[^\/\.]/g.test(item));
-
-  for (let name of files) {
+  var doneWithCount = 0;
+  files.forEach(async function(name: string, _i: number) {
     var innerFile = path.join(folder, name);
     if (fs.lstatSync(innerFile).isDirectory()) {
       if (recourse) {
@@ -19,9 +19,10 @@ export default async function scanFolder(
       } else {
         event.sender.send("scan-response", {
           path: innerFile,
-          status: "skip",
-          message: "Not a File and Recursively is disabled",
           type: "folder",
+          folder: folder,
+          doneWithCount: ++doneWithCount,
+          lsLength: files.length,
         });
       }
     } else {
@@ -31,20 +32,13 @@ export default async function scanFolder(
       // save to db
       event.sender.send("scan-response", {
         path: innerFile,
-        status: "success",
-        message: "completed file check",
         hash: hash,
         type: "file",
+        folder: folder,
+        doneWithCount: ++doneWithCount,
+        lsLength: files.length,
       });
     }
-  }
-  console.log("folder. .........................")
-  console.log(folder)
-  event.sender.send("scan-response", {
-    path: folder,
-    status: "success",
-    message: `completed one: ${folder}`,
-    type: "folder",
   });
 }
 
