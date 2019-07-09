@@ -19,7 +19,7 @@ if (isDevMode) {
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1800,
+    width: 1000,
     height: 600,
   });
 
@@ -30,13 +30,11 @@ const createWindow = async () => {
   // connect react js to electorn
   eventListeners(ipcMain);
 
-  // mainWindow.loadURL(`file://${__dirname}/ui/index.html`);
-
   // Open the DevTools.
-  if (isDevMode) {
+  // if (isDevMode) {
     await installExtension(REACT_DEVELOPER_TOOLS);
     mainWindow.webContents.openDevTools();
-  }
+  // }
 
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {

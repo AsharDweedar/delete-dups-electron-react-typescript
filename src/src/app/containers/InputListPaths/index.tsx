@@ -1,13 +1,13 @@
 import * as React from "react";
-import { ListPath } from "app/components";
-// import { PathModel } from "app/models";
+
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import { omit } from "app/utils";
+
 import { PathActions } from "app/actions";
 import { RootState } from "app/reducers";
-// import { createBrowserHistory } from "history";
-// Pick<P, Exclude<keyof P, keyof IMessageProps>>
+
+import { ListPath } from "app/components";
 
 export namespace InputListPaths {
   export interface Props {

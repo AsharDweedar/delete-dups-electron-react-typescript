@@ -8,7 +8,7 @@ const initialState: RootState.PathState = [
     id: -1,
     path: "No Paths Selected",
     recursively: true,
-    scan_completed: true,
+    scan_completed: false,
   },
 ];
 
@@ -52,7 +52,14 @@ export const pathReducer = handleActions<RootState.PathState, PathModel>(
       );
     },
     [PathActions.Type.TOGGLE_SCAN_COMPLETED]: (state, action) => {
-      return state.filter(path => path.scan_completed === false);
+      let newPaths = state.map(
+        path =>
+          path.id == (action.payload || { id: -1 }).id
+            ? { ...path, scan_completed: !path.scan_completed }
+            : path
+      );
+      console.log("newPaths ,", newPaths);
+      return newPaths;
     },
   },
   initialState

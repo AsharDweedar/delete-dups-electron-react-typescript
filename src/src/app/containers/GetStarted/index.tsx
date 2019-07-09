@@ -10,9 +10,9 @@ import { Options } from "../Options";
 import { InputListPaths } from "../InputListPaths";
 import { InputListExts } from "../InputListExt";
 
-import { ProcessActions } from "../../actions";
+import { ProcessActions, PathActions } from "../../actions";
 import { RootState } from "../../reducers";
-
+import { PathModel } from "app/models";
 import DB from "app/db/bin";
 
 const { FilesDB, FoldersDB } = DB;
@@ -32,118 +32,124 @@ function resetDB(db: any) {
       });
     });
 }
-resetDB(FoldersDB);
-resetDB(FilesDB);
 
 interface FileDBModel {
   paths: string[];
   _id: string;
   _rev: string;
 }
+type AllActions = ProcessActions & PathActions;
 interface FileMsgModel {
   path: string;
   folder: string;
   lsLength: number;
   hash: string;
   doneWithCount: number;
-}
+} /* 
 interface FolderDBModel {
   doneLength: number;
   lsLength: number;
   path: string;
   _id: string;
   _rev: string;
-}
+} */
 
 export namespace GetStarted {
   export interface Props extends RouteComponentProps<void> {
     fullState: RootState;
     actions: {
+      resetDB: Function;
       ScanStatus: Function;
       toggleScanOnGoing: Function;
-    };
+    } & PathActions; // TODO: do i need to send PathActions?
   }
 }
 
-function Scanner(state: RootState | undefined, actions: ProcessActions) {
+function toggleFolderDone(
+  { path }: { path: string },
+  state: RootState | undefined,
+  actions: AllActions
+) {
+  console.log("toggleFolderDone");
+  if (state) {
+    let exists = state.paths.filter((ele: PathModel) => ele.path == path);
+    console.log(exists);
+    if (exists[0]) {
+      console.log("toggling ", exists[0]);
+      actions.completeAll(exists[0]);
+    }
+  }
+}
+
+function Scanner(state: RootState | undefined, actions: AllActions) {
+  console.log("Scanner");
   if (state) {
     ipcRenderer.on("scan-response", (_event: any, arg: any) => {
       switch (arg["type"]) {
         case "file":
-          saveFileToDB(arg, actions, state);
+          saveFileToDB(arg, actions, state, 20);
           break;
 
         case "folder":
-          saveFolderToDB(arg, actions, state, 20);
+          toggleFolderDone(arg, state, actions);
+          // saveFolderToDB({ ...arg, path: arg.folder }, actions, state, 20);
           break;
 
         default:
           break;
       }
     });
-
+    console.log("state.paths", state.paths);
     ipcRenderer.send("request-scan-action", state.paths);
   }
 }
 
 function saveFileToDB(
   arg: FileMsgModel,
-  actions: ProcessActions,
-  state: RootState
+  actions: AllActions,
+  state: RootState,
+  retries: number
 ) {
   var { hash, path } = arg;
-  var cb = () =>
-    saveFolderToDB(
-      {
-        path: arg.folder,
-        lsLength: arg.lsLength,
-        doneWithCount: arg.doneWithCount,
-      },
-      actions,
-      state,
-      20
-    );
+  var cb = () => {
+    console.log(retries);
+    if (--retries) saveFileToDB(arg, actions, state, retries);
+  };
   FilesDB.get(hash)
     .then((doc: FileDBModel) => {
       var obj = {
-        _id: doc._id,
-        _rev: doc._rev,
-        paths: doc.paths.concat([path]),
+        ...doc,
+        paths: [...doc.paths, path],
       };
       FilesDB.put(obj)
         .then(() => {})
-        .catch((err: any) => {
-          console.log("update for path error: ", path);
-        });
-      cb();
+        .catch(() => (console.log("update for path error: ", path), cb()));
     })
     .catch(() => {
       FilesDB.put({ _id: hash, paths: [path] })
         .then(() => cb())
-        .catch((err: any) => {
-          cb();
-          console.log("insert file error: ", path);
-        });
+        .catch(() => (console.log("insert file error: ", path), cb()));
     });
 }
-
+/* 
 function handleSubFolder(
   folder: { path: string; lsLength: number },
-  _actions: ProcessActions,
+  _actions: AllActions,
   _state: RootState,
   retries: number
 ) {
   console.log("done inside fub folder: ", folder, " retries: ", retries);
-}
-
+} */
+/* 
 function saveFolderToDB(
   folder: { path: string; lsLength: number; doneWithCount: number },
-  actions: ProcessActions,
+  actions: AllActions,
   state: RootState,
   retries: number
 ) {
   console.log("saveFolderToDB, re-try number : ", retries);
-  let { path, lsLength, doneWithCount } = folder;
+  let { path, lsLength } = folder;
+  // let { path, lsLength, _doneWithCount } = folder;
   let fromState = state.paths.filter(ele => ele.path == path);
   let pathFromState = fromState[0];
   if (!fromState.length)
@@ -155,12 +161,13 @@ function saveFolderToDB(
         _id: `${pathFromState.id}`,
         _rev: old._rev,
         path: path,
-        doneLength: doneWithCount,
+        // doneLength: doneWithCount,
+        doneLength: old.doneLength + 1,
         lsLength: lsLength,
       })
         .then((res: any) => {
-          let isDone = doneWithCount / lsLength == 1;
-          console.log("isDone", isDone, "old.doneLength", doneWithCount);
+          let isDone = old.doneLength / lsLength == 1;
+          console.log("isDone", isDone, "old.doneLength", old.doneLength);
           if (isDone) {
             let oldProgress = state.process.progress;
             let newState = {
@@ -173,7 +180,8 @@ function saveFolderToDB(
           }
         })
         .catch((err: any) => {
-          if (--retries == 0) return console.log("allll tries failed err : ", err);
+          if (--retries == 0)
+            return console.log("allll tries failed err : ", err);
           saveFolderToDB(folder, actions, state, retries);
         });
     })
@@ -192,7 +200,7 @@ function saveFolderToDB(
         });
     });
 }
-
+ */
 async function getScanStatus(
   state: RootState | undefined,
   actions: ProcessActions
@@ -231,13 +239,26 @@ async function getScanStatus(
     return { fullState: state };
   },
   (dispatch: Dispatch): Pick<GetStarted.Props, "actions"> => {
-    var actions = bindActionCreators(omit(ProcessActions, "Type"), dispatch);
+    console.log("dispatch");
+    console.log(dispatch);
+    console.log("dispatch");
+    var processActions = bindActionCreators(
+      omit(ProcessActions, "Type"),
+      dispatch
+    );
+    var pathActions = bindActionCreators(omit(PathActions, "Type"), dispatch);
+    const allActions = { ...processActions, ...pathActions };
     return {
       actions: {
+        ...pathActions,
         ScanStatus: function(state: RootState) {
-          getScanStatus(state, actions);
+          getScanStatus(state, allActions);
         },
-        toggleScanOnGoing: (state: RootState) => Scanner(state, actions),
+        toggleScanOnGoing: (state: RootState) => Scanner(state, allActions),
+        resetDB: () => {
+          resetDB(FoldersDB);
+          resetDB(FilesDB);
+        },
       },
     };
   }
@@ -252,13 +273,19 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
     this.props.actions.toggleScanOnGoing(this.props.fullState);
   }
 
+  // componentDidMount () {
+
+  // }
+
   render() {
     let state = this.props.fullState;
+    let donePaths = state.paths.filter((e: PathModel) => e.scan_completed)
+      .length;
     console.log("...........................................");
-    console.log(state.process.progress);
+    console.log(donePaths);
     console.log("...........................................");
     let allPathsCount = state.paths.length;
-    let percent = (state.process.progress / allPathsCount) * 100;
+    let percent = (donePaths / allPathsCount) * 100;
     return (
       <div>
         <div className={style.container1}>

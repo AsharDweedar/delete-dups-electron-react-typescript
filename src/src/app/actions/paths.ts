@@ -11,8 +11,8 @@ export namespace PathActions {
 
     export const addPath = createAction<PartialPick<PathModel, 'path'>>(Type.ADD_PATH);
     export const deletePath = createAction<PathModel['id']>(Type.DELETE_PATH);
-    export const completePath = createAction<PathModel['id']>(Type.TOGGLE_RECURS);
-    export const completeAll = createAction<PathModel['id']>(Type.TOGGLE_SCAN_COMPLETED);
+    export const togglePathRecursively = createAction<PathModel['id']>(Type.TOGGLE_RECURS);
+    export const completeAll = createAction<PathModel>(Type.TOGGLE_SCAN_COMPLETED);
 }
 
 export type PathActions = Omit<typeof PathActions, 'Type'>;
