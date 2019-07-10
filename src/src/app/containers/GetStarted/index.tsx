@@ -148,42 +148,30 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
     this.props.actions.startScan(this.props.fullState);
   }
 
-  // componentDidUpdate(prevProps: GetStarted.Props, _prevState: {}) {
-  //   console.log("componentDidUpdate inside get started, prevProps: ", prevProps);
-  //   let state = this.props.fullState;
-  //   let notDone = state.paths.filter((ele: PathModel) => !ele.scan_completed)
-  //     .length;
-  //   console.log(
-  //     "getStarted : state.process.scanOnGoing",
-  //     state.process.scanOnGoing
-  //   );
-  //   console.log("getStarted : notDone", notDone);
-  //   if (state.process.scanOnGoing && notDone == 0) {
-  //     this.props.actions.toggleScanOnGoing(state);
-  //   }
-  // }
-
   render() {
     let state = this.props.fullState;
-    let donePaths = state.paths.filter((e: PathModel) => e.scan_completed)
-      .length;
+    let { paths } = state;
+    let donePaths = paths.filter((e: PathModel) => e.scan_completed).length;
     console.log("re-render GetStarted..................");
     console.log("state", state);
-    let allPathsCount = state.paths.length;
-    let percent = (donePaths / allPathsCount) * 100;
-    let isDisabled = state.process.scanOnGoing ? "disabled" : "";
+    let percent = (donePaths / paths.length) * 100;
+    let scanning = state.process.scanOnGoing;
+    let isDisabled = scanning || donePaths == paths.length ? "disabled" : "";
     return (
       <div>
         <div className={style.container1}>
-          <Options />
-          <a
-            onClick={this.startScan}
-            className={`waves-effect waves-light btn-large right ${isDisabled}`}
-            style={{ margin: "2.5em" }}
-          >
-            <i className="material-icons left">cloud</i>
-            Start Scanning
-          </a>
+          <Options scanning={scanning} />
+          {paths.length &&
+            paths[0].id != -1 && (
+              <a
+                onClick={this.startScan}
+                className={`waves-effect waves-light btn-large right ${isDisabled}`}
+                style={{ margin: "2.5em" }}
+              >
+                <i className="material-icons left">cloud</i>
+                Start Scanning
+              </a>
+            )}
         </div>
 
         <div className="progress">
@@ -198,7 +186,7 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
           }}
         >
           <InputListPaths
-            scanning={state.process.scanOnGoing}
+            scanning={scanning}
             toggleScanOnGoing={this.toggleScanOnGoing.bind(this)}
           />
           <InputListExts />
