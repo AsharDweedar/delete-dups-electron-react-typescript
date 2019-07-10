@@ -52,7 +52,7 @@ export default async function scanFolder(
     }
   }
   // console.log("go to sleep ");
-  await sleep(2000);
+  await sleep(4000);
   // console.log("wake up");
   // console.log("sending Done response for folder ", folder);
   event.sender.send("scan-response", {

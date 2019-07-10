@@ -11,10 +11,10 @@ const initialState: RootState.ProcessState = {
 export const processReducer = handleActions<RootState.ProcessState, RootState>(
   {
     [ProcessActions.Type.SCANNING_START]: (state, action) => {
-      return {
-        ...state,
-        scanOnGoing: !state["scanOnGoing"],
-      };
+      console.log("state inside the dispatched action ", state);
+      let newState = { ...state, scanOnGoing: !state["scanOnGoing"] };
+      console.log("state inside the dispatched action ", newState);
+      return newState;
     },
     [ProcessActions.Type.SCAN_PROGRESS]: (state, action) => {
       if (action.payload) {

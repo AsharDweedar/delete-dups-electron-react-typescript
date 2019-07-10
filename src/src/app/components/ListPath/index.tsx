@@ -12,6 +12,7 @@ export namespace ListPath {
     paths: PathModel[];
     deletePath: Function;
     scanning: boolean;
+    toggleScanOnGoing: Function;
   }
 }
 
@@ -21,6 +22,16 @@ export class ListPath extends React.Component<ListPath.Props> {
     this.props.deletePath({ id: parseInt(id) });
   }
 
+  componentDidUpdate() {
+    console.log("componentDidUpdate inside ListPath");
+    let { paths, scanning } = this.props;
+    let notDone = paths.filter((ele: PathModel) => !ele.scan_completed).length;
+    console.log("scanning: ", scanning);
+    console.log("notDone: ", notDone);
+    if (scanning && notDone == 0) {
+      this.props.toggleScanOnGoing();
+    }
+  }
   renderList(list: PathModel[]) {
     let deletePath = this.deletePath.bind(this);
     let { scanning } = this.props;
@@ -77,7 +88,11 @@ const Element = (params: {
 };
 
 const renderDone = (done?: boolean) =>
-  done ? <i className="far fa-check-circle" /> : null;
+  done ? <i className="material-icons">done_outline</i> : null;
+
+// font awesome
+// const renderDone = (done?: boolean) =>
+//   done ? <i className="far fa-check-circle" /> : null;
 
 // const renderDone = (done?: boolean) =>
 //   done ? <span className="badge green left">&#9989;</span> : null;

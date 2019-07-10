@@ -5,7 +5,7 @@ import { omit } from "app/utils";
 
 import { PathActions } from "app/actions";
 import { RootState } from "app/reducers";
-import { PathModel } from "app/models";
+// import { PathModel } from "app/models";
 
 import { ListPath } from "app/components";
 
@@ -40,13 +40,16 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
     super(props, context);
   }
 
-  componentDidMount() {
-    let { paths, scanning } = this.props;
-    let notDone = paths.filter((ele: PathModel) => !ele.scan_completed).length;
-    if (scanning && notDone == 0) {
-      this.props.toggleScanOnGoing();
-    }
+  // componentDidUpdate() {
+  //   console.log("componentDidUpdate inside InputListPaths");
+  //   let { paths, scanning } = this.props;
+  //   let notDone = paths.filter((ele: PathModel) => !ele.scan_completed).length;
+  //   if (scanning && notDone == 0) {
+  //     this.props.toggleScanOnGoing();
+  //   }
+  // }
 
+  componentDidMount() {
     let ele = document.getElementById("selector");
     if (!!ele) {
       ele.setAttribute("webkitdirectory", "true");
@@ -101,27 +104,10 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
             scanning={this.props.scanning}
             paths={paths}
             deletePath={this.props.actions.deletePath}
+            toggleScanOnGoing={this.props.toggleScanOnGoing}
           />
         </ul>
       </div>
     );
   }
 }
-
-// export default connect<MyStateProps, MyDispatchProps, MyOwnProps>(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(InputListPaths);
-
-// export default connect<
-//   Pick<InputListPaths.Props, "paths">,
-//   Pick<InputListPaths.Props, "actions">,
-//   {}
-// >(
-//   (state: RootState): Pick<InputListPaths.Props, "paths"> => {
-//     return { paths: state.paths };
-//   },
-//   (dispatch: Dispatch): Pick<InputListPaths.Props, "actions"> => ({
-//     actions: bindActionCreators(omit(PathActions, "Type"), dispatch),
-//   })
-// )(InputListPaths);
