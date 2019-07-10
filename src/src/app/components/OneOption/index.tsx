@@ -11,6 +11,7 @@ export namespace OneOption {
   export interface Props {
     opt: OptModel;
     onChange: Function;
+    scanning: boolean;
   }
   export interface State {}
 }
@@ -37,6 +38,7 @@ export class OneOption extends React.Component<
             unCheckedChildren={<Icon type="close" />}
             defaultChecked={this.props.opt.enabled}
             onChange={this.handleSwitch}
+            disabled={this.props.scanning}
           />
         </td>
       </tr>

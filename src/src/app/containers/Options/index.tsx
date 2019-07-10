@@ -43,11 +43,17 @@ export class Options extends React.Component<Options.Props, Options.State> {
     var { opts, scanning } = this.props;
     var list = [];
     for (var opt of opts) {
-      list.push(<OneOption opt={opt} onChange={this.updateOptions} />);
+      list.push(
+        <OneOption
+          opt={opt}
+          onChange={this.updateOptions}
+          scanning={scanning}
+        />
+      );
     }
     return (
       <div style={{ width: "60%", display: "inline-block" }}>
-        <table className={`responsive-table ${scanning ? "disabled" : ""}`}>
+        <table className="responsive-table">
           <tbody>{list}</tbody>
         </table>
       </div>
