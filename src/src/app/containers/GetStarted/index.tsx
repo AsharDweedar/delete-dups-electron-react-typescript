@@ -60,9 +60,10 @@ export namespace GetStarted {
     actions: {
       resetDB: Function;
       ScanStatus: Function;
+      startScan: Function;
       toggleScanOnGoing: Function;
-    } & PathActions; // TODO: do i need to send PathActions?
-  }
+    } & PathActions;
+  } // TODO: do i need to send PathActions?
 }
 
 function toggleFolderDone(
@@ -87,19 +88,20 @@ function Scanner(state: RootState | undefined, actions: AllActions) {
     ipcRenderer.on("scan-response", (_event: any, arg: any) => {
       switch (arg["type"]) {
         case "file":
-          saveFileToDB(arg, actions, state, 20);
+          saveFileToDB(arg, actions, state, 1);
           break;
 
         case "folder":
           toggleFolderDone(arg, state, actions);
-          // saveFolderToDB({ ...arg, path: arg.folder }, actions, state, 20);
+          // saveFolderToDB({ ...arg, path: arg.folder }, actions, state, 1);
           break;
 
         default:
           break;
       }
     });
-    console.log("state.paths", state.paths);
+    actions.toggleScanOnGoing(state);
+    console.log("actions.toggleScanOnGoing");
     ipcRenderer.send("request-scan-action", state.paths);
   }
 }
@@ -123,7 +125,11 @@ function saveFileToDB(
       };
       FilesDB.put(obj)
         .then(() => {})
-        .catch(() => (console.log("update for path error: ", path), cb()));
+        .catch(
+          (err: any) => (
+            console.log("update for path error: ", path, " err: ", err), cb()
+          )
+        );
     })
     .catch(() => {
       FilesDB.put({ _id: hash, paths: [path] })
@@ -239,9 +245,6 @@ async function getScanStatus(
     return { fullState: state };
   },
   (dispatch: Dispatch): Pick<GetStarted.Props, "actions"> => {
-    console.log("dispatch");
-    console.log(dispatch);
-    console.log("dispatch");
     var processActions = bindActionCreators(
       omit(ProcessActions, "Type"),
       dispatch
@@ -254,7 +257,10 @@ async function getScanStatus(
         ScanStatus: function(state: RootState) {
           getScanStatus(state, allActions);
         },
-        toggleScanOnGoing: (state: RootState) => Scanner(state, allActions),
+        startScan: (state: RootState) => Scanner(state, allActions),
+        toggleScanOnGoing: (state: RootState) => {
+          processActions.toggleScanOnGoing(state);
+        },
         resetDB: () => {
           resetDB(FoldersDB);
           resetDB(FilesDB);
@@ -270,29 +276,36 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
   }
 
   startScan() {
-    this.props.actions.toggleScanOnGoing(this.props.fullState);
+    if (this.props.fullState.process.scanOnGoing) return;
+    this.props.actions.startScan(this.props.fullState);
   }
 
-  // componentDidMount () {
-
-  // }
+  componentDidMount() {
+    let state = this.props.fullState;
+    let notDone = state.paths.filter((ele: PathModel) => !ele.scan_completed)
+      .length;
+    if (state.process.scanOnGoing && notDone == 0) {
+      this.props.actions.toggleScanOnGoing(state);
+    }
+  }
 
   render() {
     let state = this.props.fullState;
     let donePaths = state.paths.filter((e: PathModel) => e.scan_completed)
       .length;
-    console.log("...........................................");
-    console.log(donePaths);
-    console.log("...........................................");
+    // console.log("re-render GetStarted..................");
+    // console.log(donePaths);
+    // console.log("re-render GetStarted..................");
     let allPathsCount = state.paths.length;
     let percent = (donePaths / allPathsCount) * 100;
+    let isDisabled = state.process.scanOnGoing ? "disabled" : "";
     return (
       <div>
         <div className={style.container1}>
           <Options />
           <a
             onClick={this.startScan}
-            className="waves-effect waves-light btn-large right"
+            className={`waves-effect waves-light btn-large right ${isDisabled}`}
             style={{ margin: "2.5em" }}
           >
             <i className="material-icons left">cloud</i>
@@ -311,7 +324,12 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
             alignContent: "flex-start",
           }}
         >
-          <InputListPaths />
+          <InputListPaths
+            scanning={state.process.scanOnGoing}
+            toggleScanOnGoing={() =>
+              this.props.actions.toggleScanOnGoing(state).bind(this)
+            }
+          />
           <InputListExts />
         </div>
       </div>

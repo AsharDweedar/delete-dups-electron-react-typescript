@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import * as classNames from "classnames";
-import * as style from "./style.css";
+// import * as classNames from "classnames";
+// import * as style from "./style.css";
 
 // import { Checkbox } from "antd";
 
@@ -11,6 +11,7 @@ export namespace ListPath {
   export interface Props {
     paths: PathModel[];
     deletePath: Function;
+    scanning: boolean;
   }
 }
 
@@ -22,11 +23,12 @@ export class ListPath extends React.Component<ListPath.Props> {
 
   renderList(list: PathModel[]) {
     let deletePath = this.deletePath.bind(this);
+    let { scanning } = this.props;
     return (
       <div>
         {list.map((path: PathModel) => (
           <li className="collection-item" key={path.path}>
-            <Element path={path} deletePath={deletePath} />
+            <Element scanning={scanning} path={path} deletePath={deletePath} />
           </li>
         ))}
       </div>
@@ -49,61 +51,53 @@ export class ListPath extends React.Component<ListPath.Props> {
 export default ListPath;
 
 type EventHandler = (event: any) => void;
-const Element = (params: { path: PathModel; deletePath: EventHandler }) => {
-  const classes = classNames(
-    {
-      [style.inputter]: true,
-    },
-    style.normal
-  );
-  var { path, deletePath } = params;
-  // TODO: input does not appear
+const Element = (params: {
+  path: PathModel;
+  deletePath: EventHandler;
+  scanning: boolean;
+}) => {
+  // const classes = classNames(
+  //   {
+  //     [style.inputter]: true,
+  //   },
+  //   style.normal
+  // );
+  var { path, deletePath, scanning } = params;
+  if (path.id == -1) {
+    return <div>{path.path}</div>;
+  }
   return (
     <div>
-      <form>
-        <p>
-          <label>
-            <input
-              id="myID"
-              className={classes}
-              style={{ border: "3px solid red" }}
-              title="doneScanning"
-              name="scanComplete"
-              type="checkbox"
-              disabled
-              checked={true}
-            />
-          </label>
-        </p>
-      </form>
-      {path.id != -1 && CheckCompleteElement(path.scan_completed)}
+      {renderDone(path.scan_completed)}
+      {scanning && renderLoader(path.scan_completed)}
       {path.path}
-      {path.id != -1 && DeleteElement(deletePath, path.id)}
+      {DeleteElement(deletePath, path.id)}
     </div>
   );
 };
 
-const CheckCompleteElement = (status: boolean) => (
-  <span>Done: {`${status}`}</span>
-);
-// <Checkbox disabled checked={status} />);
-// <div>
-//   <form>
-//     <p>
-//       <label>
-//         <input
-//           style={{
-//             // backgroundColor: "#eee",
-//             width: "20px",
-//             height: "20px",
-//           }}
-//           type="checkbox"
-//           checked={true}
-//         />
-//       </label>
-//     </p>
-//   </form>
-// </div>);
+const renderDone = (done?: boolean) =>
+  done ? <i className="far fa-check-circle" /> : null;
+
+// const renderDone = (done?: boolean) =>
+//   done ? <span className="badge green left">&#9989;</span> : null;
+
+const renderLoader = (done?: boolean) =>
+  done ? null : (
+    <div className="preloader-wrapper small active">
+      <div className="spinner-layer spinner-green-only">
+        <div className="circle-clipper left">
+          <div className="circle" />
+        </div>
+        <div className="gap-patch">
+          <div className="circle" />
+        </div>
+        <div className="circle-clipper right">
+          <div className="circle" />
+        </div>
+      </div>
+    </div>
+  );
 
 const DeleteElement = (deletePath: EventHandler, id: number) => (
   <a href="#!" className="secondary-content">

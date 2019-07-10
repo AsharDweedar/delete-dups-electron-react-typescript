@@ -16,9 +16,9 @@ export default async function scanFolder(
     var innerFile = path.join(folder, files[i]);
     if (fs.lstatSync(innerFile).isDirectory()) {
       if (recourse) {
-        console.log("before await ........................ : ", innerFile);
+        // console.log("before await ........................ : ", innerFile);
         await scanFolder(event, innerFile, recourse);
-        console.log("after await ........................ : ", innerFile);
+        // console.log("after await ........................ : ", innerFile);
         //   console.log(
         //     "done from sub folder and now send notification for folder"
         //   );
@@ -51,10 +51,10 @@ export default async function scanFolder(
       });
     }
   }
-  console.log("go to sleep ");
+  // console.log("go to sleep ");
   await sleep(2000);
-  console.log("wake up");
-  console.log("sending Done response for folder ", folder);
+  // console.log("wake up");
+  // console.log("sending Done response for folder ", folder);
   event.sender.send("scan-response", {
     path: folder,
     type: "folder",
@@ -67,7 +67,7 @@ export default async function scanFolder(
 function hashFile(path: string) {
   let content = fs.readFileSync(path, "utf8");
   let newHash = sha256(content);
-  console.log(newHash);
+  // console.log(newHash);
   return typeof newHash == "string" ? newHash : `${Math.random()}`;
 }
 

@@ -58,7 +58,6 @@ export const pathReducer = handleActions<RootState.PathState, PathModel>(
             ? { ...path, scan_completed: !path.scan_completed }
             : path
       );
-      console.log("newPaths ,", newPaths);
       return newPaths;
     },
   },

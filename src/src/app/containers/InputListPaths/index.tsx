@@ -1,11 +1,11 @@
 import * as React from "react";
-
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import { omit } from "app/utils";
 
 import { PathActions } from "app/actions";
 import { RootState } from "app/reducers";
+import { PathModel } from "app/models";
 
 import { ListPath } from "app/components";
 
@@ -13,6 +13,8 @@ export namespace InputListPaths {
   export interface Props {
     paths: RootState.PathState;
     actions: PathActions;
+    scanning: boolean;
+    toggleScanOnGoing: Function;
   }
 }
 
@@ -37,7 +39,14 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
   constructor(props: InputListPaths.Props, context?: any) {
     super(props, context);
   }
+
   componentDidMount() {
+    let { paths, scanning } = this.props;
+    let notDone = paths.filter((ele: PathModel) => !ele.scan_completed).length;
+    if (scanning && notDone == 0) {
+      this.props.toggleScanOnGoing();
+    }
+
     let ele = document.getElementById("selector");
     if (!!ele) {
       ele.setAttribute("webkitdirectory", "true");
@@ -48,6 +57,7 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
       ele.setAttribute("multiple", "true");
     }
   }
+
   show(e: any) {
     var ele = document.getElementById("selector") || {
       click: () => {},
@@ -55,10 +65,12 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
     };
     ele.click();
   }
+
   update_list(e: any) {
     let file = e.target.files[0].path;
     this.props["actions"]["addPath"]({ path: file });
   }
+
   render() {
     const { paths } = this.props;
     return (
@@ -85,7 +97,11 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
               className="btn-floating btn-large waves-effect waves-light green"
             />
           </li>
-          <ListPath paths={paths} deletePath={this.props.actions.deletePath} />
+          <ListPath
+            scanning={this.props.scanning}
+            paths={paths}
+            deletePath={this.props.actions.deletePath}
+          />
         </ul>
       </div>
     );
