@@ -1,10 +1,5 @@
 import * as React from "react";
 
-// import * as classNames from "classnames";
-// import * as style from "./style.css";
-
-// import { Checkbox } from "antd";
-
 import { PathModel } from "app/models";
 
 export namespace ListPath {
@@ -67,12 +62,6 @@ const Element = (params: {
   deletePath: EventHandler;
   scanning: boolean;
 }) => {
-  // const classes = classNames(
-  //   {
-  //     [style.inputter]: true,
-  //   },
-  //   style.normal
-  // );
   var { path, deletePath, scanning } = params;
   if (path.id == -1) {
     return <div>{path.path}</div>;
@@ -81,21 +70,24 @@ const Element = (params: {
     <div>
       {renderDone(path.scan_completed)}
       {scanning && renderLoader(path.scan_completed)}
-      {path.path}
+      <span style={{ marginLeft: "15px", marginRight: "15px" }}>
+        {path.path}
+      </span>
       {DeleteElement(deletePath, path.id)}
     </div>
   );
 };
 
 const renderDone = (done?: boolean) =>
-  done ? <i className="material-icons">done_outline</i> : null;
-
-// font awesome
-// const renderDone = (done?: boolean) =>
-//   done ? <i className="far fa-check-circle" /> : null;
-
-// const renderDone = (done?: boolean) =>
-//   done ? <span className="badge green left">&#9989;</span> : null;
+  done ? (
+    <a
+      id="scale-demo"
+      href="#!"
+      className="btn-floating btn-small scale-transition"
+    >
+      <i className="material-icons">done_outline</i>
+    </a>
+  ) : null;
 
 const renderLoader = (done?: boolean) =>
   done ? null : (

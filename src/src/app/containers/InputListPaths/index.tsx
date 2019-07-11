@@ -40,15 +40,6 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
     super(props, context);
   }
 
-  // componentDidUpdate() {
-  //   console.log("componentDidUpdate inside InputListPaths");
-  //   let { paths, scanning } = this.props;
-  //   let notDone = paths.filter((ele: PathModel) => !ele.scan_completed).length;
-  //   if (scanning && notDone == 0) {
-  //     this.props.toggleScanOnGoing();
-  //   }
-  // }
-
   componentDidMount() {
     let ele = document.getElementById("selector");
     if (!!ele) {
@@ -81,7 +72,7 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
         style={{
           display: "inline-block",
           alignItems: "stretch",
-          margin: "50px",
+          margin: "25px",
           maxWidth: "45%",
         }}
       >
@@ -98,7 +89,9 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
               onClick={this.show.bind(this)}
               style={{ float: "right" }}
               className="btn-floating btn-large waves-effect waves-light green"
-            />
+            >
+              +
+            </button>
           </li>
           <ListPath
             scanning={this.props.scanning}

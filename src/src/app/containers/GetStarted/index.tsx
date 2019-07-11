@@ -49,6 +49,7 @@ export namespace GetStarted {
       resetDB: Function;
       startScan: Function;
       toggleScanOnGoing: Function;
+      download: Function;
     } & PathActions;
   } // TODO: do i need to send PathActions?
 }
@@ -86,11 +87,11 @@ function Scanner(state: RootState | undefined, actions: AllActions) {
           break;
       }
     });
-    let paths = state.paths.filter((ele: PathModel) => ele.scan_completed);
-    console.log("ipcRenderer 111111");
+    let paths = state.paths.filter((ele: PathModel) => !ele.scan_completed);
+    // console.log("ipcRenderer 111111");
     ipcRenderer.send("request-scan-action", paths);
-    console.log("actions.toggleScanOnGoing 22222");
-    actions.toggleScanOnGoing(state);
+    // console.log("actions.toggleScanOnGoing 22222");
+    // actions.toggleScanOnGoing(state);
   }
 }
 
@@ -103,6 +104,32 @@ function saveFileToDB(arg: FileMsgModel, retries: number) {
       console.log("update for path error: ", path, " err: ", err);
       if (--retries) saveFileToDB(arg, retries);
     });
+}
+
+async function download(cb: Function) {
+  await new Promise(resolve => setTimeout(resolve, 5000));
+  if (document.getElementById("download_conclusion"))
+    alert("downloading already in progress; preparing Data!");
+
+  var element = document.createElement("a");
+  element.setAttribute("id", "download_conclusion");
+  let files = await FilesDB.allDocs();
+  let folders = await FoldersDB.allDocs();
+  let data = JSON.stringify(files) + "\n\n\n\n" + JSON.stringify(folders);
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(data)
+  );
+  element.setAttribute("download", "conclusion.txt");
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+
+  cb();
 }
 
 @connect(
@@ -120,9 +147,10 @@ function saveFileToDB(arg: FileMsgModel, retries: number) {
       actions: {
         ...pathActions,
         startScan: (state: RootState) => Scanner(state, allActions),
+        download: download,
         toggleScanOnGoing: (state: RootState) => {
           console.log(
-            "actions to the getstarted smart component: toggleScanOnGoing"
+            "actions to the getStarted smart component: toggleScanOnGoing"
           );
           processActions.toggleScanOnGoing(state);
         },
@@ -134,10 +162,16 @@ function saveFileToDB(arg: FileMsgModel, retries: number) {
     };
   }
 )
-export class GetStarted extends React.Component<GetStarted.Props, {}> {
+export class GetStarted extends React.Component<
+  GetStarted.Props,
+  { isDownloading: boolean }
+> {
   constructor(props: GetStarted.Props, context?: any) {
     super(props, context);
+    this.state = { isDownloading: false };
     this.startScan = this.startScan.bind(this);
+    this.startDownload = this.startDownload.bind(this);
+    this.toggleScanOnGoing = this.toggleScanOnGoing.bind(this);
   }
 
   toggleScanOnGoing() {
@@ -145,8 +179,15 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
   }
 
   startScan() {
-    if (this.props.fullState.process.scanOnGoing) return;
+    if (!this.props.fullState.process.scanOnGoing) this.toggleScanOnGoing();
     this.props.actions.startScan(this.props.fullState);
+  }
+
+  startDownload() {
+    if (!this.state.isDownloading) this.setState({ isDownloading: true });
+    this.props.actions.download(() => {
+      this.setState({ isDownloading: false });
+    });
   }
 
   render() {
@@ -157,22 +198,35 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
     console.log("state", state);
     let percent = (donePaths / paths.length) * 100;
     let scanning = state.process.scanOnGoing;
-    let isDisabled = scanning || donePaths == paths.length ? "disabled" : "";
+    let isDisabled =
+      scanning || donePaths == paths.length || paths[0].id == -1
+        ? "disabled"
+        : "";
+    let isDownloading =
+      this.state.isDownloading || donePaths == 0 ? "disabled" : "";
     return (
       <div>
         <div className={style.container1}>
           <Options scanning={scanning} />
-          {paths.length &&
-            paths[0].id != -1 && (
-              <a
-                onClick={this.startScan}
-                className={`waves-effect waves-light btn-large right ${isDisabled}`}
-                style={{ margin: "2.5em" }}
-              >
-                <i className="material-icons left">cloud</i>
-                Start Scanning
-              </a>
-            )}
+        </div>
+        <div>
+          <a
+            onClick={this.startScan}
+            className={`waves-effect waves-light btn-large right ${isDisabled}`}
+            style={{ margin: "2.5em" }}
+          >
+            <i className="material-icons left">cloud</i>
+            Start Scanning
+          </a>
+
+          <a
+            onClick={this.startDownload}
+            className={`waves-effect waves-light btn-large right ${isDownloading}`}
+            style={{ margin: "2.5em" }}
+          >
+            <i className="material-icons left">cloud_download</i>
+            download
+          </a>
         </div>
 
         <div className="progress">
@@ -188,7 +242,7 @@ export class GetStarted extends React.Component<GetStarted.Props, {}> {
         >
           <InputListPaths
             scanning={scanning}
-            toggleScanOnGoing={this.toggleScanOnGoing.bind(this)}
+            toggleScanOnGoing={this.toggleScanOnGoing}
           />
           <InputListExts />
         </div>
