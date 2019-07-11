@@ -96,6 +96,7 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
             scanning={this.props.scanning}
             paths={paths}
             deletePath={this.props.actions.deletePath}
+            toggleRecursive={this.props.actions.togglePathRecursively}
             toggleScanOnGoing={this.props.toggleScanOnGoing}
           />
         </ul>

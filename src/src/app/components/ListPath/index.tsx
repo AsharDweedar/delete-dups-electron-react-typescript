@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { Switch } from "react-materialize";
+
 import { PathModel } from "app/models";
 
 export namespace ListPath {
@@ -8,6 +10,7 @@ export namespace ListPath {
     deletePath: Function;
     scanning: boolean;
     toggleScanOnGoing: Function;
+    toggleRecursive: Function;
   }
 }
 
@@ -34,7 +37,14 @@ export class ListPath extends React.Component<ListPath.Props> {
       <div>
         {list.map((path: PathModel) => (
           <li className="collection-item" key={path.path}>
-            <Element scanning={scanning} path={path} deletePath={deletePath} />
+            <Element
+              scanning={scanning}
+              path={path}
+              deletePath={deletePath}
+              toggleRecursive={(() => this.props.toggleRecursive(path.id)).bind(
+                this
+              )}
+            />
           </li>
         ))}
       </div>
@@ -60,9 +70,10 @@ type EventHandler = (event: any) => void;
 const Element = (params: {
   path: PathModel;
   deletePath: EventHandler;
+  toggleRecursive: Function;
   scanning: boolean;
 }) => {
-  var { path, deletePath, scanning } = params;
+  var { path, deletePath, scanning, toggleRecursive } = params;
   if (path.id == -1) {
     return <div>{path.path}</div>;
   }
@@ -70,6 +81,12 @@ const Element = (params: {
     <div>
       {renderDone(path.scan_completed)}
       {scanning && renderLoader(path.scan_completed)}
+      <Switch
+        offLabel="path.recursively"
+        onLabel=""
+        default={path.recursively}
+        onClick={toggleRecursive}
+      />
       <span style={{ marginLeft: "15px", marginRight: "15px" }}>
         {path.path}
       </span>
