@@ -58,7 +58,7 @@ const Element = ({
     <li className="collection-item">
       <div>
         {ext.id != -1 && (
-          <span style={{ marginLeft: "2.5%" }}>
+          <span style={{ marginLeft: "2%" }}>
             <Switch
               checkedChildren={<Icon type="check" />}
               unCheckedChildren={<Icon type="close" />}
@@ -67,7 +67,7 @@ const Element = ({
             />
           </span>
         )}
-        {value}
+        <span style={{ marginLeft: "15px", marginRight: "15px" }}>{value}</span>
         {ext.id != -1 && (
           <a href="#!" className="secondary-content">
             <i onClick={() => deleteExt(ext)} className="material-icons">

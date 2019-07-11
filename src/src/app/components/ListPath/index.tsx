@@ -43,7 +43,7 @@ export class ListPath extends React.Component<ListPath.Props> {
 
   render() {
     let list = this.props.paths;
-    if (list.length) return this.renderList(list);
+    if (list.length && list[0].id != -1) return this.renderList(list);
     return (
       <li className="collection-item" key="empty">
         <li className="collection-item">

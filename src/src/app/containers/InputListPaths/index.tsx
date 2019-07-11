@@ -5,7 +5,6 @@ import { omit } from "app/utils";
 
 import { PathActions } from "app/actions";
 import { RootState } from "app/reducers";
-// import { PathModel } from "app/models";
 
 import { ListPath } from "app/components";
 

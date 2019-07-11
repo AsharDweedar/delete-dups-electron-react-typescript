@@ -6,7 +6,7 @@ import { PathModel } from "app/models";
 const initialState: RootState.PathState = [
   {
     id: -1,
-    path: "No Paths Selected",
+    path: "Default: No Paths Selected",
     recursively: true,
     scan_completed: false,
   },

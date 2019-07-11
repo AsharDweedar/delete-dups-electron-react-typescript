@@ -18,20 +18,23 @@ import DB from "app/db/bin";
 const { FilesDB, FoldersDB } = DB;
 
 function resetDB(db: any) {
-  db.allDocs()
-    .then(function(result: any) {
-      return Promise.all(
-        result.rows.map(function(row: any) {
-          return db.remove(row.id, row.value.rev);
-        })
-      );
-    })
-    .then(function() {
-      db.allDocs().then(function(result: any) {
-        console.log(result);
-      });
+  db.allDocs().then(function(result: any) {
+    let docs = result.rows.map((row: any) => ({
+      _id: row["_id"],
+      _rev: row["value"]["_rev"],
+      _deleted: true,
+    }));
+    db.bulkDocs(docs, function(err: any, response: any) {
+      if (err) {
+        return console.log("ERROR: deleting all documents", err);
+      } else {
+        console.log(response, "Documents deleted Successfully");
+      }
     });
+  });
 }
+resetDB(FoldersDB);
+resetDB(FilesDB);
 
 type AllActions = ProcessActions & PathActions;
 interface FileMsgModel {
@@ -59,19 +62,16 @@ function toggleFolderDone(
   state: RootState | undefined,
   actions: AllActions
 ) {
-  console.log("toggleFolderDone");
   if (state) {
     let exists = state.paths.filter((ele: PathModel) => ele.path == path);
-    console.log(exists);
+
     if (exists[0]) {
-      console.log("toggling ", exists[0]);
       actions.completeAll(exists[0]);
     }
   }
 }
 
 function Scanner(state: RootState | undefined, actions: AllActions) {
-  console.log("Scanner");
   if (state) {
     ipcRenderer.on("scan-response", (_event: any, arg: any) => {
       switch (arg["type"]) {
@@ -88,10 +88,7 @@ function Scanner(state: RootState | undefined, actions: AllActions) {
       }
     });
     let paths = state.paths.filter((ele: PathModel) => !ele.scan_completed);
-    // console.log("ipcRenderer 111111");
     ipcRenderer.send("request-scan-action", paths);
-    // console.log("actions.toggleScanOnGoing 22222");
-    // actions.toggleScanOnGoing(state);
   }
 }
 
@@ -101,20 +98,21 @@ function saveFileToDB(arg: FileMsgModel, retries: number) {
   FilesDB.put(obj)
     .then(() => {})
     .catch((err: any) => {
-      console.log("update for path error: ", path, " err: ", err);
+      console.log("err with saving file : ", err);
       if (--retries) saveFileToDB(arg, retries);
     });
 }
 
 async function download(cb: Function) {
-  await new Promise(resolve => setTimeout(resolve, 5000));
+  await new Promise(resolve => setTimeout(resolve, 3000));
   if (document.getElementById("download_conclusion"))
-    alert("downloading already in progress; preparing Data!");
+    return alert("downloading already in progress; preparing Data!");
 
   var element = document.createElement("a");
   element.setAttribute("id", "download_conclusion");
-  let files = await FilesDB.allDocs();
-  let folders = await FoldersDB.allDocs();
+  let files = await FilesDB.allDocs({ include_docs: true });
+  console.log(files);
+  let folders = await FoldersDB.allDocs({ include_docs: true });
   let data = JSON.stringify(files) + "\n\n\n\n" + JSON.stringify(folders);
   element.setAttribute(
     "href",
@@ -124,9 +122,7 @@ async function download(cb: Function) {
 
   element.style.display = "none";
   document.body.appendChild(element);
-
   element.click();
-
   document.body.removeChild(element);
 
   cb();
@@ -149,9 +145,6 @@ async function download(cb: Function) {
         startScan: (state: RootState) => Scanner(state, allActions),
         download: download,
         toggleScanOnGoing: (state: RootState) => {
-          console.log(
-            "actions to the getStarted smart component: toggleScanOnGoing"
-          );
           processActions.toggleScanOnGoing(state);
         },
         resetDB: () => {
@@ -194,8 +187,7 @@ export class GetStarted extends React.Component<
     let state = this.props.fullState;
     let { paths } = state;
     let donePaths = paths.filter((e: PathModel) => e.scan_completed).length;
-    console.log("re-render GetStarted..................");
-    console.log("state", state);
+
     let percent = (donePaths / paths.length) * 100;
     let scanning = state.process.scanOnGoing;
     let isDisabled =
