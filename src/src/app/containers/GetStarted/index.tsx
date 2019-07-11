@@ -86,8 +86,9 @@ function Scanner(state: RootState | undefined, actions: AllActions) {
           break;
       }
     });
+    let paths = state.paths.filter((ele: PathModel) => ele.scan_completed);
     console.log("ipcRenderer 111111");
-    ipcRenderer.send("request-scan-action", state.paths);
+    ipcRenderer.send("request-scan-action", paths);
     console.log("actions.toggleScanOnGoing 22222");
     actions.toggleScanOnGoing(state);
   }
