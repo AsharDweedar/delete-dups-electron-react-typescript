@@ -36,7 +36,6 @@ module.exports = {
   module: {
     rules: [
       { test: /\.coffee$/, use: ['coffee-loader'] },
-      // .ts, .tsx
       {
         test: /\.tsx?$/,
         use: [
@@ -47,7 +46,6 @@ module.exports = {
           'ts-loader'
         ].filter(Boolean)
       },
-      // css
       {
         test: /\.css$/,
         use: [
@@ -83,10 +81,6 @@ module.exports = {
           }
         ]
       },
-      // {
-      //   test: /\.less$/,
-      //   loader: 'less-loader' // compiles Less to CSS
-      // },
       {
         test: /\.less$/,
         use: [
@@ -98,6 +92,7 @@ module.exports = {
       // static assets
       { test: /\.html$/, use: 'html-loader' },
       { test: /\.(a?png|svg)$/, use: 'url-loader?limit=10000' },
+      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=25000' },
       {
         test: /\.(jpe?g|gif|bmp|mp3|mp4|ogg|wav|eot|ttf|woff|woff2)$/,
         use: 'file-loader'

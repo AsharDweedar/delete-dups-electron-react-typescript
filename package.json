@@ -43,10 +43,15 @@
         "name": "delete-dups-electron-react-typescript"
       },
       "windowsStoreConfig": {
-        "packageName": "",
+        "packageName": "DeleteDups",
         "name": "deletedups"
       }
     }
+  },
+  "build": {
+    "extraResources": [
+      "resources/**/*"
+    ]
   },
   "dependencies": {
     "aws-sdk": "^2.491.0",
@@ -54,6 +59,7 @@
     "electron-compile": "^6.4.2",
     "electron-squirrel-startup": "^1.0.0",
     "js-sha256": "^0.9.0",
+    "shelljs": "^0.8.3",
     "tslib": "^1.9.0"
   },
   "devDependencies": {

@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open",
     "build": "webpack -p --progress --colors",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "watch": "webpack --watch"
+    "watch": "webpack -p --progress --colors --watch"
   },
   "license": "MIT",
   "devDependencies": {
