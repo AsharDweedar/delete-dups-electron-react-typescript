@@ -33,7 +33,7 @@ export class ExtTextInput extends React.Component<
   }
 
   handleSubmit(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.which === 13 && this.props.text != "") {
+    if (event.which === 13) {
       this.props.onSave(this.props.text);
     }
   }

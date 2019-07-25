@@ -1,9 +1,10 @@
 import * as fs from "fs";
 import * as path from "path";
 import { sha256 } from "js-sha256";
-
+import { ExtModel } from "../src/src/app/models";
 export default async function scanFolder(
   event: any,
+  exts: ExtModel[],
   folder: string,
   recourse: boolean
 ) {
@@ -17,7 +18,7 @@ export default async function scanFolder(
     if (fs.lstatSync(innerFile).isDirectory()) {
       if (recourse) {
         // console.log("before await ........................ : ", innerFile);
-        await scanFolder(event, innerFile, recourse);
+        await scanFolder(event, exts, innerFile, recourse);
         // console.log("after await ........................ : ", innerFile);
         //   console.log(
         //     "done from sub folder and now send notification for folder"
@@ -39,16 +40,20 @@ export default async function scanFolder(
         //   });
       }
     } else {
-      // TODO: check extension
-      let hash = hashFile(innerFile);
-      event.sender.send("scan-response", {
-        path: innerFile,
-        hash: hash,
-        type: "file",
-        folder: folder,
-        doneWithCount: ++doneWithCount,
-        lsLength: files.length,
-      });
+      let ext = path.extname(innerFile);
+      if (allowedExt(ext, exts)) {
+        let hash = hashFile(innerFile);
+        event.sender.send("scan-response", {
+          path: innerFile,
+          hash: hash,
+          type: "file",
+          folder: folder,
+          doneWithCount: ++doneWithCount,
+          lsLength: files.length,
+        });
+      } else {
+        console.log("ignore invalid ext: ");
+      }
     }
   }
   // console.log("go to sleep ");
@@ -62,6 +67,14 @@ export default async function scanFolder(
     doneWithCount: ++doneWithCount,
     lsLength: files.length,
   });
+}
+
+function allowedExt(extToFind: string, exts: ExtModel[]) {
+  for (let { ext, sensitive } of exts) {
+    if (extToFind == ext) return true;
+    if (!sensitive && extToFind == ext.toLowerCase()) return true;
+  }
+  return false;
 }
 
 function hashFile(path: string) {

@@ -1,0 +1,19 @@
+.container {
+  display: "inline-block";
+  align-items: "stretch";
+  margin: "50px";
+  max-width: "45%";
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: rgba(255, 51, 0, 0.733);
+  color: #000;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 40px;
+}

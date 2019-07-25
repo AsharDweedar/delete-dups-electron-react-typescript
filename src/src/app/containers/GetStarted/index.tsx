@@ -88,7 +88,8 @@ function Scanner(state: RootState | undefined, actions: AllActions) {
       }
     });
     let paths = state.paths.filter((ele: PathModel) => !ele.scan_completed);
-    ipcRenderer.send("request-scan-action", paths);
+    let exts = state.exts;
+    ipcRenderer.send("request-scan-action", { paths, exts });
   }
 }
 
