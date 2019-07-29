@@ -69,7 +69,7 @@ const Element = ({
         )}
         <span style={{ marginLeft: "15px", marginRight: "15px" }}>{value}</span>
         {ext.id != -1 && (
-          <a href="#!" className="secondary-content">
+          <a className="secondary-content">
             <i onClick={() => deleteExt(ext)} className="material-icons">
               delete
             </i>

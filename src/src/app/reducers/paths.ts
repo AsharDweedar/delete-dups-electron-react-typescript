@@ -12,31 +12,45 @@ const initialState: RootState.PathState = [
   },
 ];
 
-export const pathReducer = handleActions<RootState.PathState, PathModel>(
+export const pathReducer = handleActions<RootState.PathState, any>(
   {
     [PathActions.Type.ADD_PATH]: (state, action) => {
-      if (action.payload && action.payload.path) {
-        let filtered = state.filter(
-          ({ path }) => (action.payload || { path: "" }).path == path
-        );
-        if (filtered.length) return state;
-        let list = state.length == 1 && state[0]["id"] == -1 ? [] : state;
-        return [
-          ...list,
-          {
-            id: list.length + 1,
-            scan_completed: false,
-            recursively: true,
-            path: action.payload.path,
-          },
-        ];
+      let list = state.length == 1 && state[0]["id"] == -1 ? [] : state;
+      if (action.payload && (action.payload.path || action.payload.paths)) {
+        if (action.payload.path) {
+          action.payload.paths = [action.payload.path];
+        }
+
+        if (action.payload.paths && action.payload.paths.length) {
+          return action.payload.paths.reduce(
+            function(acc: Array<PathModel>, path: string) {
+              let exists = state.find(
+                ({ path: statePath }) => path == statePath
+              );
+              if (exists) return acc;
+              let ret = [
+                ...acc,
+                {
+                  id: acc.length + 1,
+                  scan_completed: false,
+                  recursively: true,
+                  path: path,
+                },
+              ];
+              return ret;
+            },
+            [...list]
+          );
+        } else {
+          return state;
+        }
       } else {
         return state;
       }
     },
     [PathActions.Type.DELETE_PATH]: (state, action) => {
       var id = (action["payload"] || { id: -1 })["id"];
-      state = state.filter(path => path.id !== id);
+      state = state.filter(path => path.id != id);
       return state.length
         ? state.map((ele, i) => {
             return { ...ele, id: i };

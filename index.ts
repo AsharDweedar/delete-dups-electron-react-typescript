@@ -4,6 +4,7 @@ import installExtension, {
 } from "electron-devtools-installer";
 import { enableLiveReload } from "electron-compile";
 
+// import selectDirectory from "./Functionality/selectFolder";
 import createMenu from "./menu";
 import eventListeners from "./eventListeners";
 
@@ -17,30 +18,17 @@ if (isDevMode) {
 }
 
 const createWindow = async () => {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 600,
-  });
-
+  mainWindow = new BrowserWindow({ width: 1000, height: 600 });
   createMenu(Menu);
-
-  // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/src/dist/index.html`);
-  // connect react js to electorn
-  eventListeners(ipcMain);
+  eventListeners(ipcMain, mainWindow);
 
-  // Open the DevTools.
   if (isDevMode) {
     await installExtension(REACT_DEVELOPER_TOOLS);
     mainWindow.webContents.openDevTools();
   }
 
-  // Emitted when the window is closed.
   mainWindow.on("closed", () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWindow = null;
   });
 };
@@ -69,3 +57,5 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+// export default selectDirectory(mainWindow);

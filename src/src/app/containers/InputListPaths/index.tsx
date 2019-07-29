@@ -8,6 +8,8 @@ import { RootState } from "app/reducers";
 
 import { ListPath } from "app/components";
 
+import { ipcRenderer } from "electron";
+
 export namespace InputListPaths {
   export interface Props {
     paths: RootState.PathState;
@@ -39,29 +41,11 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
     super(props, context);
   }
 
-  componentDidMount() {
-    let ele = document.getElementById("selector");
-    if (!!ele) {
-      ele.setAttribute("webkitdirectory", "true");
-      ele.setAttribute("mozdirectory", "true");
-      ele.setAttribute("msdirectory", "true");
-      ele.setAttribute("odirectory", "true");
-      ele.setAttribute("directory", "true");
-      ele.setAttribute("multiple", "true");
-    }
-  }
-
-  show(e: any) {
-    var ele = document.getElementById("selector") || {
-      click: () => {},
-      refs: { x: {} },
-    };
-    ele.click();
-  }
-
-  update_list(e: any) {
-    let file = e.target.files[0].path;
-    this.props["actions"]["addPath"]({ path: file });
+  show() {
+    ipcRenderer.on("selectDirectory", (_ev: any, dirs: string) => {
+      this.props["actions"]["addPath"]({ paths: dirs });
+    });
+    ipcRenderer.send("selectDirectory");
   }
 
   render() {
@@ -78,12 +62,6 @@ export class InputListPaths extends React.Component<InputListPaths.Props, {}> {
         <ul className="collection with-header">
           <li className="collection-header">
             <h4 style={{ display: "inline-block" }}>Paths</h4>
-            <input
-              type="file"
-              style={{ display: "none" }}
-              id="selector"
-              onChange={this.update_list.bind(this)}
-            />
             <button
               onClick={this.show.bind(this)}
               style={{ float: "right" }}
