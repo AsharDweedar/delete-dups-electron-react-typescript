@@ -4,6 +4,8 @@ import installExtension, {
 } from "electron-devtools-installer";
 import { enableLiveReload } from "electron-compile";
 
+import { join } from "path";
+import { homedir } from "os";
 // import selectDirectory from "./Functionality/selectFolder";
 import createMenu from "./menu";
 import eventListeners from "./eventListeners";
@@ -24,7 +26,19 @@ const createWindow = async () => {
   eventListeners(ipcMain, mainWindow);
 
   if (isDevMode) {
-    await installExtension(REACT_DEVELOPER_TOOLS);
+    try {
+      await installExtension(REACT_DEVELOPER_TOOLS.id);
+    } catch (error) {
+      console.log("error with installExtention : ", error);
+      try {
+        let id = "ippapidnnboiophakmmhkdlchoccbgje";
+        let subPath = `.config/google-chrome/Default/Extensions/${id}/1.6.0_0/`;
+        let extPath = join(homedir(), subPath);
+        BrowserWindow.addDevToolsExtension(extPath);
+      } catch (error) {
+        console.log("Error: BrowserWindow.addDevToolsExtension", error);
+      }
+    }
     mainWindow.webContents.openDevTools();
   }
 
