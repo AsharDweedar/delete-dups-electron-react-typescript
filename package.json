@@ -5,7 +5,7 @@
   "description": "My Electron application description",
   "main": "src/index.ts",
   "scripts": {
-    "start": ". ./.env && electron-forge start",
+    "start": ". ./.env && electron-forge start --inspect-electron",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
