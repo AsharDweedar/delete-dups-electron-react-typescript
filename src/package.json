@@ -60,7 +60,7 @@
     "classnames": "^2.2.6",
     "coffee-script": "^1.12.7",
     "coffeescript": "^2.3.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "materialize-css": "^1.0.0-rc.1",
     "pouchdb-browser": "^7.1.1",
     "react": "^16.4.2",
